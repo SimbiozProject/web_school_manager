@@ -1,8 +1,6 @@
 package com.example.web_school_manager.bean;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,20 +34,22 @@ public class QuestionAnswerTable implements Serializable {
     private String rightAnswer;
 
     @OneToMany(mappedBy = "questionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
     private Set<UserAnswerTable> answerFromUser;
 
     public QuestionAnswerTable() {
     }
 
-    public QuestionAnswerTable(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
+    public QuestionAnswerTable(Long id, String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer, Set<UserAnswerTable> answerFromUser) {
+        this.id = id;
         this.question = question;
         this.firstAnswer = firstAnswer;
         this.secondAnswer = secondAnswer;
         this.thirdAnswer = thirdAnswer;
         this.fourthAnswer = fourthAnswer;
         this.rightAnswer = rightAnswer;
+        this.answerFromUser = answerFromUser;
     }
 
     public Long getId() {
