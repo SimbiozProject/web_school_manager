@@ -1,13 +1,18 @@
 package com.example.web_school_manager.bean;
 
-import lombok.Builder;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 @Builder
+@AllArgsConstructor
 @Entity
+@Getter
+@Setter
+@ToString(exclude = "answerFromUser")
+@NoArgsConstructor
 @Table(name = "question_answer")
 public class QuestionAnswerTable implements Serializable {
     @Id
@@ -34,29 +39,15 @@ public class QuestionAnswerTable implements Serializable {
     private String rightAnswer;
 
     @OneToMany(mappedBy = "questionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
     private Set<UserAnswerTable> answerFromUser;
 
-    public QuestionAnswerTable() {
-    }
-
-    public QuestionAnswerTable(Long id, String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer, Set<UserAnswerTable> answerFromUser) {
-        this.id = id;
+    public QuestionAnswerTable(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
         this.question = question;
         this.firstAnswer = firstAnswer;
         this.secondAnswer = secondAnswer;
         this.thirdAnswer = thirdAnswer;
         this.fourthAnswer = fourthAnswer;
         this.rightAnswer = rightAnswer;
-        this.answerFromUser = answerFromUser;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

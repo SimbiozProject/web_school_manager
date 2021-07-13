@@ -1,12 +1,18 @@
 package com.example.web_school_manager.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Builder
+@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "hw_for_students")
 public class HwForStudentTable implements Serializable {
     @Id
@@ -23,46 +29,4 @@ public class HwForStudentTable implements Serializable {
 
     @Column(name = "hw_doc")
     private String hwDoc;
-
-    public HwForStudentTable() {
-    }
-
-    public HwForStudentTable(int hwForStudentsId, GroupTable groupHwForStudents, int lessonNumber, String hwDoc) {
-        this.hwForStudentsId = hwForStudentsId;
-        this.groupHwForStudents = groupHwForStudents;
-        this.lessonNumber = lessonNumber;
-        this.hwDoc = hwDoc;
-    }
-
-    public int getHwForStudentsId() {
-        return hwForStudentsId;
-    }
-
-    public void setHwForStudentsId(int hwForStudentsId) {
-        this.hwForStudentsId = hwForStudentsId;
-    }
-
-    public GroupTable getGroupHwForStudents() {
-        return groupHwForStudents;
-    }
-
-    public void setGroupHwForStudents(GroupTable groupHwForStudents) {
-        this.groupHwForStudents = groupHwForStudents;
-    }
-
-    public int getLessonNumber() {
-        return lessonNumber;
-    }
-
-    public void setLessonNumber(int lessonNumber) {
-        this.lessonNumber = lessonNumber;
-    }
-
-    public String getHwDoc() {
-        return hwDoc;
-    }
-
-    public void setHwDoc(String hwDoc) {
-        this.hwDoc = hwDoc;
-    }
 }
