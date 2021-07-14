@@ -18,7 +18,7 @@ import java.util.Optional;
 @Repository
 public interface TgUserTableDaoWebRepository extends JpaRepository<TgUserTable, Long> {
 
-    TgUserTable findByUserName(String userName);
+    Optional<TgUserTable> findByUserName(String userName);
 
     Optional<TgUserTable> findByFirstName(String userName);
 
@@ -35,7 +35,7 @@ public interface TgUserTableDaoWebRepository extends JpaRepository<TgUserTable, 
 //    @Query(value = "DELETE FROM tg_user WHERE id_user = ?1", nativeQuery = true)
     void deleteTgUserTableById(Long id);
 
-    TgUserTable findTgUserTableById(Long id);
+    Optional<TgUserTable> findTgUserTableById(Long id);
 
     @Transactional
     @Modifying

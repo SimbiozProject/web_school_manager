@@ -25,7 +25,7 @@ public class TgUserTableDaoWebService {
     }
 
     @Transactional
-    public TgUserTable findByUserName(String userName) {
+    public Optional<TgUserTable> findByUserName(String userName) {
         return tgUserTableDaoWebRepository.findByUserName(userName);
     }
 

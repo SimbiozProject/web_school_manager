@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -29,7 +30,7 @@ public class AdminService {
         tgUserTableDaoWebRepository.deleteTgUserTableById(id);
     }
 
-    public TgUserTable findBlockUserById(Long id){
+    public Optional<TgUserTable> findBlockUserById(Long id){
         return tgUserTableDaoWebRepository.findTgUserTableById(id);
     }
 
@@ -37,7 +38,7 @@ public class AdminService {
         tgUserTableDaoWebRepository.updateBlockUserStatus(id, blockUser);
     }
 
-    public TgUserTable searchTgUserForBlockList(String userName){
+    public Optional<TgUserTable> searchTgUserForBlockList(String userName){
         return tgUserTableDaoWebRepository.findByUserName(userName);
     }
 
