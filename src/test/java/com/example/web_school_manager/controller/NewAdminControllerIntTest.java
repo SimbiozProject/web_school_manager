@@ -1,28 +1,38 @@
 package com.example.web_school_manager.controller;
 
+import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class NewAdminControllerIntTest {
+    @Autowired
+    TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
 
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     ObjectMapper objectMapper;
+
+//    @MockBean
+//    private NewAdminController newAdminController;
 
     @Autowired
     NewAdminController newAdminController;
@@ -32,7 +42,7 @@ class NewAdminControllerIntTest {
     }
 
     @Test
-    void adminPageMenu() throws Exception {
+    void adminPageMenuTest() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/adminMenu");
         mockMvc.perform(request)
                 .andDo(print())
@@ -40,7 +50,7 @@ class NewAdminControllerIntTest {
     }
 
     @Test
-    void testAdminPageMenu() throws Exception {
+    void schedulePageTest() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/schedule");
         this.mockMvc.perform(request)
                 .andDo(print())
@@ -49,18 +59,163 @@ class NewAdminControllerIntTest {
                         .string(containsString("https://calendar.google.com/calendar/embed")));
     }
 
-//    @Test
-//    void testAdminPageMenu1() throws Exception {
-//        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/userBlockList")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(newAdminController.blackListPage()));
-//
-//        var expected = "a JSON array";
-//
+    @Test
+    void blackListPageTest() throws Exception {
+    RequestBuilder request = MockMvcRequestBuilders.get("/userBlock")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(newAdminController.blackListPage()));
+
+    var expected = newAdminController.blackListPage();
+
+    MvcResult result = mockMvc.perform(request)
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+            .andReturn();
+}
+
+    @ParameterizedTest
+    @CsvSource("olga")
+    void searchUserForBlockTest(String userName) throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/findUserForBlock?userName=olga")//"/findUserForBlock?userName=olga")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newAdminController.searchUserForBlock(userName)));
+
+        var expected = newAdminController.searchUserForBlock(userName);
+
+        MvcResult result = mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+                .andReturn();
+    }
+
+    @ParameterizedTest
+    @CsvSource("1")
+    void deleteTgUserById(Long id) throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/blockUserDelete/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newAdminController.deleteTgUserById(id)));
+
+        var expected = newAdminController.deleteTgUserById(id);
+
+        MvcResult result = mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+                .andReturn();
+    }
+
+
+    @ParameterizedTest  //копия теста deleteTgUserById() выше который, просто подругому переписанный
+    @CsvSource("1")
+    void deleteTgUserById1(Long id) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/blockUserDelete/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.userName").value("emily"));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource("5")
+    void deleteAndReturnToBlackList(Long id) throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.delete("/blockUserDelete/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newAdminController.deleteAndReturnToBlackList(id)));
+
+        MvcResult result = mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @ParameterizedTest
+    @CsvSource("1")
+    void updateStatusBlock(Long id) throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/blockUserUpdate/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newAdminController.updateStatusBlock(id)));
+
+        var expected = newAdminController.updateStatusBlock(id);
+
+        MvcResult result = mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+                .andReturn();
+    }
+
+//    static Stream<Arguments> arguments = Stream.of(Arguments.of("1", true));
+
+
+@ParameterizedTest
+@CsvSource("6")
+    void updateStatusBlockUser(Long id) throws Exception {
+
+       RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/blockUserUpdate/{id}", id)
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(objectMapper.writeValueAsString(new TgUserTable(6L, true)));
+
+    var expected = new TgUserTable(6L, true);
+
+    MvcResult result = mockMvc.perform(requestBuilder)
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+            .andReturn();
+
+
 //        MvcResult result = mockMvc.perform(requestBuilder)
 //                .andDo(print())
 //                .andExpect(status().isOk())
-//                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+//                .andExpect(jsonPath("$.id").value("6"))
+////                .andExpect(jsonPath("$.blockUser").value(false))
+//                .andReturn();
+    }
+
+
+/*
+
+   long id = createTestPerson("Nick").getId();
+    mockMvc.perform(
+            put("/persons/{id}", id)
+                    .content(objectMapper.writeValueAsString(new Person("Michail")))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value("1"))
+            .andExpect(jsonPath("$.name").value("Michail"));
+}
+
+
+
+ mockMvc.perform(
+            delete("/persons/{id}", person.getId()))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(objectMapper.writeValueAsString(person)));
+}
+
+ mockMvc.perform(
+            get("/persons/{id}", id))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(id))
+            .andExpect(jsonPath("$.name").value("Michail"));
+ */
+
+
+//    @Test
+//    void testAdminPageMenu1() throws Exception {
+//        RequestBuilder request = MockMvcRequestBuilders.get("/userBlockList");
+//        when(newAdminController.blackListPage()).thenReturn(Arrays.asList(
+//                new TgUserTable(1L, "Vasya", true),
+//                new TgUserTable(2L, "Masya", true)
+//        ));
+//
+//        mockMvc.perform(request)
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", hasSize(2)))
+//                .andExpect(jsonPath("$.id", containsInAnyOrder(1,2)))
 //                .andReturn();
 //    }
 
@@ -80,4 +235,5 @@ class NewAdminControllerIntTest {
                 .andReturn();
     }
      */
+
 }

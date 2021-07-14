@@ -31,7 +31,7 @@ public class TgUserTable implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(nullable = false)
+    @Column//(nullable = false)
     private String password;
 
     @Column(name = "email") //, nullable = false, unique = true)
@@ -67,4 +67,18 @@ public class TgUserTable implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userName", cascade = CascadeType.ALL)
     private Set<UserAnswerTable> usersAnswers;
 
+    public TgUserTable(Long id, String userName, Boolean blockUser) {
+        this.id = id;
+        this.userName = userName;
+        this.blockUser = blockUser;
+    }
+
+    public TgUserTable(Long id, Boolean blockUser) {
+        this.id = id;
+        this.blockUser = blockUser;
+    }
+
+    public TgUserTable(String userName) {
+        this.userName = userName;
+    }
 }
