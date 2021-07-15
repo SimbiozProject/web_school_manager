@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -153,17 +156,24 @@ class NewAdminControllerIntTest {
 @CsvSource("6")
     void updateStatusBlockUser(Long id) throws Exception {
 
-       RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/blockUserUpdate/{id}", id)
-               .contentType(MediaType.APPLICATION_JSON)
-               .content(objectMapper.writeValueAsString(new TgUserTable(6L, true)));
-
-    var expected = new TgUserTable(6L, true);
-
-    MvcResult result = mockMvc.perform(requestBuilder)
+    mockMvc.perform(MockMvcRequestBuilders.post("/blockUserUpdate/{id}", id)
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("blockUser", "false")
+            .content(objectMapper.writeValueAsString(newAdminController.updateStatusBlockUser(id, false))))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
             .andReturn();
+
+    Optional<TgUserTable> tgUserTable = tgUserTableDaoWebRepository.findById(6L);
+    assertThat(tgUserTable.get().getBlockUser()).isEqualTo(false);
+}
+
+
+//    MvcResult result = mockMvc.perform(requestBuilder)
+//            .andDo(print())
+//            .andExpect(status().isOk())
+////            .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+//            .andReturn();
 
 
 //        MvcResult result = mockMvc.perform(requestBuilder)
@@ -172,7 +182,26 @@ class NewAdminControllerIntTest {
 //                .andExpect(jsonPath("$.id").value("6"))
 ////                .andExpect(jsonPath("$.blockUser").value(false))
 //                .andReturn();
-    }
+
+
+
+
+
+//    @Test
+//    void updateStatusBlockUser1(Long id) throws Exception {
+//        RequestBuilder request = MockMvcRequestBuilders.post("/blockUserUpdate/{id}", id)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(new TgUserTable(id, true)));
+//
+//        var expected = newAdminController.updateStatusBlockUserUser(id, false);
+//
+//        MvcResult result = mockMvc.perform(request)
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
+//                .andReturn();
+//
+//    }
 
 
 /*

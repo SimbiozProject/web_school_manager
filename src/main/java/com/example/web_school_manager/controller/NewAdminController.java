@@ -61,10 +61,18 @@ public class NewAdminController {
 
     @PostMapping("/blockUserUpdate" + "/{id}")
     public String updateStatusBlockUser(@PathVariable("id") Long id,
-                                             @RequestParam(value = "blockUser") Boolean blockUser){
+                                             @RequestParam(value = "blockUser") /* defaultValue = "false"*/  Boolean blockUser){
         adminService.updateBlockStatusUser(id, blockUser);
+
         return "redirect:/userBlock";
     }
+
+//    @PostMapping("/blockUserUpdateUpdate" + "/{id}")
+//    public TgUserTable updateStatusBlockUserUser(@PathVariable("id") Long id,
+//                                        @RequestParam(value = "blockUser") Boolean blockUser){
+//        TgUserTable tgUserTableUser = adminService.updateBlockStatusUser(id, blockUser);
+//        return tgUserTableUser;
+//    }
 
 
 
