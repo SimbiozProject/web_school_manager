@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public class QuestionAnswerTableDaoWebService {
 
-    @Autowired
-    private QuestionAnswerTableRepository questionAnswerTableRepository;
+    private final QuestionAnswerTableRepository questionAnswerTableRepository;
+
+    public QuestionAnswerTableDaoWebService(QuestionAnswerTableRepository questionAnswerTableRepository) {
+        this.questionAnswerTableRepository = questionAnswerTableRepository;
+    }
 
     public List<QuestionAnswerTable> findAll() {
         return questionAnswerTableRepository.findAll();

@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = "answerFromUser")
+/*@ToString(exclude = "answerFromUser")*/
 @NoArgsConstructor
 @Table(name = "question_answer")
 public class QuestionAnswerTable implements Serializable {
@@ -38,8 +38,8 @@ public class QuestionAnswerTable implements Serializable {
     @Column(name = "right_answer")
     private String rightAnswer;
 
-    @OneToMany(mappedBy = "questionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<UserAnswerTable> answerFromUser;
+    /*@OneToMany(mappedBy = "questionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<UserAnswerTable> answerFromUser;*/
 
     public QuestionAnswerTable(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
         this.question = question;
@@ -50,4 +50,13 @@ public class QuestionAnswerTable implements Serializable {
         this.rightAnswer = rightAnswer;
     }
 
+   /* public QuestionAnswerTable(Long id, String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
+        this.id = id;
+        this.question = question;
+        this.firstAnswer = firstAnswer;
+        this.secondAnswer = secondAnswer;
+        this.thirdAnswer = thirdAnswer;
+        this.fourthAnswer = fourthAnswer;
+        this.rightAnswer = rightAnswer;
+    }*/
 }

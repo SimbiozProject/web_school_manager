@@ -2,34 +2,22 @@ package com.example.web_school_manager.controller;
 
 import com.example.web_school_manager.bean.QuestionAnswerTable;
 import com.example.web_school_manager.dao.service.QuestionAnswerTableDaoWebService;
-import com.example.web_school_manager.dto.QuestionAnswerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class
-QuestionAnswerTableController {
+public class QuestionAnswerTableController {
 
     @Autowired
     QuestionAnswerTableDaoWebService questionAnswerTableDaoWebService;
 
-    @GetMapping(value = "test")
-    public List<QuestionAnswerDto> testPage() {
-        QuestionAnswerDto newQuestion = QuestionAnswerDto.builder()
-                .question("question")
-                .firstAnswer("firstAnswer")
-                .secondAnswer("secondAnswer")
-                .thirdAnswer("thirdAnswer")
-                .fourthAnswer("fourthAnswer")
-                .rightAnswer("rightAnswer")
-                .build();
-        List<QuestionAnswerDto> list = Arrays.asList(newQuestion, newQuestion, newQuestion );
-        return list;
+    @GetMapping(value = "/test")
+    public List<QuestionAnswerTable> testPage() {
+        return questionAnswerTableDaoWebService.findAll();
     }
 
     @GetMapping(value = "addTest")
@@ -38,8 +26,8 @@ QuestionAnswerTableController {
     }
 
     @PostMapping(value = "addTest")
-    public QuestionAnswerDto addTest(@RequestBody QuestionAnswerDto questionAnswerDto) {
-        QuestionAnswerDto newQuestion = QuestionAnswerDto.builder()
+    public void addTest(@RequestBody QuestionAnswerTable newQuestion) {
+        newQuestion.builder()
                 .question("question")
                 .firstAnswer("firstAnswer")
                 .secondAnswer("secondAnswer")
@@ -47,8 +35,8 @@ QuestionAnswerTableController {
                 .fourthAnswer("fourthAnswer")
                 .rightAnswer("rightAnswer")
                 .build();
+        questionAnswerTableDaoWebService.addToDb(newQuestion);
 
-        return newQuestion;
 
     }
 
