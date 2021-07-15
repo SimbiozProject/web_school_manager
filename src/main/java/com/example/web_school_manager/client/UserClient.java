@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -17,12 +18,16 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @RequiredArgsConstructor
 public class UserClient {
+    @Value("${client.processor}")
+    private String uri;
     private final RestTemplate restTemplate;
+
+    private String getAllUsers = "/users";
 
     public List<TgUserTable> findAll() {
         ResponseEntity<TgUserTable[]> response =
                 restTemplate.getForEntity(
-                        "http://localhost:8080/employees/",
+                        String.format("%s%s", uri, getAllUsers),
                         TgUserTable[].class);
         TgUserTable[] users = response.getBody();
         return Arrays.asList(users);
