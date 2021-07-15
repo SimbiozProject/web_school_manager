@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.client.UserClient;
 import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,11 @@ class AdminServiceTest {
     @Autowired
     AdminService adminService;
     @MockBean
-    TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
+    UserClient userClient;
 
     @Test
     void findAllUsers() {
-        when(tgUserTableDaoWebRepository.findAll()).thenReturn(makeExpectedUsers());
+        when(userClient.findAll()).thenReturn(makeExpectedUsers());
         List<TgUserTable> actual = adminService.findAllUsers();
         assertThat(actual).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
