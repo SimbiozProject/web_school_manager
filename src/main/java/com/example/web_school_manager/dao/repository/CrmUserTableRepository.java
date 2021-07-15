@@ -1,9 +1,8 @@
 package com.example.web_school_manager.dao.repository;
 
 import com.example.web_school_manager.bean.CrmUserTable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
-public interface CrmUserTableRepository extends JpaRepository<CrmUserTable, Long> {
+@Component
+public class CrmUserTableRepository implements MyJpaRepository<CrmUserTable, Long> {
 }

@@ -2,12 +2,17 @@ package com.example.web_school_manager.controller;
 
 import com.example.web_school_manager.bean.TgUserTable;
 import com.example.web_school_manager.dao.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/admin")
 public class NewAdminController {
@@ -48,7 +53,7 @@ public class NewAdminController {
     }
 
     @DeleteMapping("/blockUserDelete" + "/{id}")
-    public String deleteAndReturnToBlackList(@PathVariable("id") Long id) throws EntityNotFoundException {
+    public String deleteAndReturnToBlackList(@PathVariable("id") Long id) throws Exception {
         adminService.deleteUserById(id);
         return "redirect:/userBlock";
     }

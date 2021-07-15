@@ -80,12 +80,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/statistic")
-    public ModelAndView findAllTgUsers(){
-        ModelAndView modelAndView = new ModelAndView("/statistic.html");
-        modelAndView.addObject("statisticList", adminService.findAllUsers());
-        return modelAndView;
-    }
     @GetMapping(value = "deleteUser" + "/{id}")
     public ModelAndView deleteUserById(@PathVariable(name = "id") Long id){
         ModelAndView modelAndView = new ModelAndView("/deleteUser.html");
