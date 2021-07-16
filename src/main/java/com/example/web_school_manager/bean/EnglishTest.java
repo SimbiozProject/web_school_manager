@@ -6,11 +6,9 @@ import java.io.Serializable;
 
 @Builder
 @AllArgsConstructor
-
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class EnglishTest implements Serializable {
 
     public EnglishTest(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
