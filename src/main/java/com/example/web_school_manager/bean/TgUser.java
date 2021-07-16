@@ -16,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(exclude = {"fromStudent", "usersAnswers"})
-public class TgUserTable implements Serializable {
+public class TgUser implements Serializable {
 
     private Long id;
 
@@ -34,32 +34,32 @@ public class TgUserTable implements Serializable {
 
     private Date dateOfBirthday;
 
-    private UserRoles roles;
+    private Roles roles;
 
-    private CourseTable courseUser;
+    private Course courseUser;
 
-    private GroupTable groupUser;
+    private Group groupUser;
 
     private Boolean blockUser;
 
     private Boolean payment;
 
-    private Set<HwFromStudentTable> fromStudent;
+    private Set<HwFromStudent> fromStudent;
 
-    private Set<UserAnswerTable> usersAnswers;
+    private Set<UsersAnswer> usersAnswers;
 
-    public TgUserTable(Long id, String userName, Boolean blockUser) {
+    public TgUser(Long id, String userName, Boolean blockUser) {
         this.id = id;
         this.userName = userName;
         this.blockUser = blockUser;
     }
 
-    public TgUserTable(Long id, Boolean blockUser) {
+    public TgUser(Long id, Boolean blockUser) {
         this.id = id;
         this.blockUser = blockUser;
     }
 
-    public TgUserTable(String userName) {
+    public TgUser(String userName) {
         this.userName = userName;
     }
 }

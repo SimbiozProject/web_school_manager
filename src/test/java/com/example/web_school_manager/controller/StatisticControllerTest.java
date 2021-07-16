@@ -1,16 +1,14 @@
 package com.example.web_school_manager.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.dao.service.AdminService;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,9 +37,9 @@ class StatisticControllerTest {
         return modelAndView;
     }
 
-    private List<TgUserTable> makeExpectedUsers() {
+    private List<TgUser> makeExpectedUsers() {
         return List.of(
-                TgUserTable.builder().id(1L).userName("max").build(),
-                TgUserTable.builder().id(2L).userName("bax").build());
+                TgUser.builder().id(1L).userName("max").build(),
+                TgUser.builder().id(2L).userName("bax").build());
     }
 }

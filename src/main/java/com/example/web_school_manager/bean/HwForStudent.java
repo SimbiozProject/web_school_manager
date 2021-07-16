@@ -9,17 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-
 @NoArgsConstructor
+public class HwForStudent implements Serializable {
 
-public class UserAnswerTable  implements Serializable {
+    private int hwForStudentsId;
 
-    private Long id;
+    private Group groupHwForStudents;
 
-    private TgUserTable userName;
+    private int lessonNumber;
 
-    private QuestionAnswerTable questionAnswer;
-
-    private String answer;
-
+    private String hwDoc;
 }

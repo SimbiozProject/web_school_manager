@@ -15,14 +15,14 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"userSet", "groupSet"})
-public class CourseTable implements Serializable {
+public class Course implements Serializable {
 
     private Long courseId;
 
     private String courseName;
 
-    private Set<TgUserTable> userSet;
+    private Set<TgUser> userSet;
 
-    private Set<GroupTable> groupSet;
+    private Set<Group> groupSet;
 
 }

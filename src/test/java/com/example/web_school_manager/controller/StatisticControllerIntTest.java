@@ -2,11 +2,10 @@ package com.example.web_school_manager.controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.util.ExtendedModelResultMatchers;
-import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.client.UserClient;
 import com.example.web_school_manager.dao.service.AdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +44,7 @@ class StatisticControllerIntTest {
     void findAllUsers() throws Exception {
         when(restTemplate.getForEntity(
                 "http://127.0.0.2:8080/users",
-                TgUserTable[].class)).thenReturn(makeMockedResponseEntity());
+                TgUser[].class)).thenReturn(makeMockedResponseEntity());
         RequestBuilder request = MockMvcRequestBuilders.get("/admin/statistic");
         mockMvc.perform(request)
                 .andDo(print())
@@ -55,21 +54,21 @@ class StatisticControllerIntTest {
                 .andReturn();
     }
 
-    private List<TgUserTable> makeExpectedUsers() {
+    private List<TgUser> makeExpectedUsers() {
         return List.of(
-                TgUserTable.builder().id(1L).userName("max").build(),
-                TgUserTable.builder().id(2L).userName("bax").build());
+                TgUser.builder().id(1L).userName("max").build(),
+                TgUser.builder().id(2L).userName("bax").build());
     }
 
-    private TgUserTable[] makeMockedUsers() {
-        TgUserTable[] tgUserTables = {
-                TgUserTable.builder().id(1L).userName("max").build(),
-                TgUserTable.builder().id(2L).userName("bax").build()
+    private TgUser[] makeMockedUsers() {
+        TgUser[] tgUsers = {
+                TgUser.builder().id(1L).userName("max").build(),
+                TgUser.builder().id(2L).userName("bax").build()
         };
-        return tgUserTables;
+        return tgUsers;
     }
 
-    private ResponseEntity<TgUserTable[]> makeMockedResponseEntity() {
-        return new ResponseEntity<TgUserTable[]>(makeMockedUsers(), HttpStatus.OK);
+    private ResponseEntity<TgUser[]> makeMockedResponseEntity() {
+        return new ResponseEntity<TgUser[]>(makeMockedUsers(), HttpStatus.OK);
     }
 }

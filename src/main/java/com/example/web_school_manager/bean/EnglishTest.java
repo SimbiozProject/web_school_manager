@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString(exclude = "answerFromUser")
 @NoArgsConstructor
 
-public class QuestionAnswerTable implements Serializable {
+public class EnglishTest implements Serializable {
 
     private Long id;
 
@@ -33,9 +33,9 @@ public class QuestionAnswerTable implements Serializable {
 
     private String rightAnswer;
 
-    private Set<UserAnswerTable> answerFromUser;
+    private Set<UsersAnswer> answerFromUser;
 
-    public QuestionAnswerTable(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
+    public EnglishTest(String question, String firstAnswer, String secondAnswer, String thirdAnswer, String fourthAnswer, String rightAnswer) {
         this.question = question;
         this.firstAnswer = firstAnswer;
         this.secondAnswer = secondAnswer;

@@ -1,6 +1,6 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.QuestionAnswerTable;
+import com.example.web_school_manager.bean.EnglishTest;
 import com.example.web_school_manager.dao.service.QuestionAnswerTableDaoWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,7 @@ QuestionAnswerTableController {
                                 @RequestParam(value = "fourthAnswer") String fourthAnswer,
                                 @RequestParam(value = "rightAnswer") String rightAnswer) {
         ModelAndView modelAndView = new ModelAndView("/addTest");
-        QuestionAnswerTable newQuestion = QuestionAnswerTable.builder()
+        EnglishTest newQuestion = EnglishTest.builder()
                 .question(question)
                 .firstAnswer(firstAnswer)
                 .secondAnswer(secondAnswer)

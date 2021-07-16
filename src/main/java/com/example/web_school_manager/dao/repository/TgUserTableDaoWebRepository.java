@@ -1,34 +1,34 @@
 package com.example.web_school_manager.dao.repository;
 
-import com.example.web_school_manager.bean.CourseTable;
-import com.example.web_school_manager.bean.GroupTable;
-import com.example.web_school_manager.bean.TgUserTable;
-import com.example.web_school_manager.bean.UserRoles;
+import com.example.web_school_manager.bean.Course;
+import com.example.web_school_manager.bean.Group;
+import com.example.web_school_manager.bean.TgUser;
+import com.example.web_school_manager.bean.Roles;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TgUserTableDaoWebRepository implements MyJpaRepository<TgUserTable, Long> {
+public class TgUserTableDaoWebRepository implements MyJpaRepository<TgUser, Long> {
 
-    public Optional<TgUserTable> findByUserName(String userName) {
+    public Optional<TgUser> findByUserName(String userName) {
         return null;
     }
 
-    public Optional<TgUserTable> findByFirstName(String userName) {
+    public Optional<TgUser> findByFirstName(String userName) {
         return null;
     }
 
-    public Optional<TgUserTable> findByLastName(String userName) {
+    public Optional<TgUser> findByLastName(String userName) {
         return null;
     }
 
-    public TgUserTable findByEmail(String email) {
+    public TgUser findByEmail(String email) {
         return null;
     }
 
-    public List<TgUserTable> findTgUserTableByBlockUserIsTrue() {
+    public List<TgUser> findTgUserTableByBlockUserIsTrue() {
         return null;
     }
 
@@ -36,7 +36,7 @@ public class TgUserTableDaoWebRepository implements MyJpaRepository<TgUserTable,
 
     }
 
-    public Optional<TgUserTable> findTgUserTableById(Long id) {
+    public Optional<TgUser> findTgUserTableById(Long id) {
         return null;
     }
 
@@ -45,8 +45,8 @@ public class TgUserTableDaoWebRepository implements MyJpaRepository<TgUserTable,
     }
 
     public void updateUsersData(Long id, String userName, String firstName, String lastName, String email,
-                         Date dateOfBirthday, Boolean active, Boolean blockUser, Boolean payment,
-                         UserRoles roles, CourseTable courseUser, GroupTable groupUser) {
+                                Date dateOfBirthday, Boolean active, Boolean blockUser, Boolean payment,
+                                Roles roles, Course courseUser, Group groupUser) {
 
     }
 }

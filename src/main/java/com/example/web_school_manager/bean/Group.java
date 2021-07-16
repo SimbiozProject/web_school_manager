@@ -1,6 +1,7 @@
 package com.example.web_school_manager.bean;
 
 import java.io.Serializable;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,16 +13,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class HwFromStudentTable implements Serializable {
+@ToString(exclude = {"tgUserSet", "studentHw"})
+public class Group implements Serializable {
 
-    private Long studentId;
+    private Long idGroup;
 
-    private TgUserTable studentName;
+    private Long groupNumber;
 
-    private int lessonNumber;
+    private Course groupCourse;
 
-    private String hwFromStudent;
+    private Set<TgUser> tgUserSet;
+
+    private Set<HwForStudent> studentHw;
 
 }

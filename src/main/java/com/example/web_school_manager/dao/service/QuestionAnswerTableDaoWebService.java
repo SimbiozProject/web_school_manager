@@ -1,6 +1,6 @@
 package com.example.web_school_manager.dao.service;
 
-import com.example.web_school_manager.bean.QuestionAnswerTable;
+import com.example.web_school_manager.bean.EnglishTest;
 import com.example.web_school_manager.dao.repository.QuestionAnswerTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class QuestionAnswerTableDaoWebService {
     @Autowired
     private QuestionAnswerTableRepository questionAnswerTableRepository;
 
-    public List<QuestionAnswerTable> findAll() {
+    public List<EnglishTest> findAll() {
         return questionAnswerTableRepository.findAll();
     }
 
-    public void addToDb(QuestionAnswerTable newQuestion) {
+    public void addToDb(EnglishTest newQuestion) {
         questionAnswerTableRepository.save(newQuestion);
     }
 
-    public QuestionAnswerTable findById(Long id) {
+    public EnglishTest findById(Long id) {
         return questionAnswerTableRepository.findQuestionAnswerTablesById(id);
     }
 

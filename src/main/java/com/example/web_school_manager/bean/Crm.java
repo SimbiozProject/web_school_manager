@@ -11,11 +11,11 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CrmUserTable  implements Serializable {
+public class Crm implements Serializable {
 
     private Long userId;
 
-    private TgUserTable tgUserTable;
+    private TgUser tgUser;
 
     private String firstName;
 
