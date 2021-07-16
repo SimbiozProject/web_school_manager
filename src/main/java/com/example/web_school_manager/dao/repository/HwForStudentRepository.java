@@ -1,9 +1,8 @@
 package com.example.web_school_manager.dao.repository;
 
 import com.example.web_school_manager.bean.HwFromStudentTable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
-public interface HwForStudentRepository extends JpaRepository<HwFromStudentTable, Long> {
+@Component
+public class HwForStudentRepository implements MyJpaRepository<HwFromStudentTable, Long> {
 }

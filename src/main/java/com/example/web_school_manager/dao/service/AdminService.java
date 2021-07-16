@@ -4,7 +4,9 @@ import com.example.web_school_manager.bean.CourseTable;
 import com.example.web_school_manager.bean.GroupTable;
 import com.example.web_school_manager.bean.TgUserTable;
 import com.example.web_school_manager.bean.UserRoles;
+import com.example.web_school_manager.client.UserClient;
 import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
     private final TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
-
-    @Autowired
-    public AdminService(TgUserTableDaoWebRepository tgUserTableDaoWebRepository) {
-        this.tgUserTableDaoWebRepository = tgUserTableDaoWebRepository;
-    }
+    private final UserClient userClient;
 
     public List<TgUserTable> findAllBlockUser(){
         return tgUserTableDaoWebRepository.findTgUserTableByBlockUserIsTrue();
@@ -43,7 +42,7 @@ public class AdminService {
     }
 
     public List<TgUserTable> findAllUsers(){
-        return tgUserTableDaoWebRepository.findAll();
+        return userClient.findAll();
     }
 
     public void updateDataOfUser(Long id, String userName, String firstName, String lastName, String email,

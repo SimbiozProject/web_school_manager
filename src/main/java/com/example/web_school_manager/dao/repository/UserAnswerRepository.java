@@ -1,11 +1,12 @@
 package com.example.web_school_manager.dao.repository;
 
 import com.example.web_school_manager.bean.UserAnswerTable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
-public interface UserAnswerRepository extends JpaRepository<UserAnswerTable, Long> {
+@Component
+public class UserAnswerRepository implements MyJpaRepository<UserAnswerTable, Long> {
 
-    UserAnswerTable findByUserName(String userName);
+    public UserAnswerTable findByUserName(String userName){
+        return null;
+    }
 }
