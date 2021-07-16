@@ -1,14 +1,13 @@
 package com.example.web_school_manager.dao.repository;
 
 
-import com.example.web_school_manager.bean.QuestionAnswerTable;
+import com.example.web_school_manager.bean.EnglishTest;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class QuestionAnswerTableRepository implements MyJpaRepository<QuestionAnswerTable, Long> {
+public class EnglishTestRepository implements MyJpaRepository<EnglishTest, Long> {
 
-    public QuestionAnswerTable findQuestionAnswerTablesById(Long id) {
+    public EnglishTest findQuestionAnswerTablesById(Long id) {
         return null;
     }
 

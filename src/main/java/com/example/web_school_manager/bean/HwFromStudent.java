@@ -3,20 +3,25 @@ package com.example.web_school_manager.bean;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @Builder
 @AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
-public class HwForStudentTable implements Serializable {
+public class HwFromStudent implements Serializable {
 
-    private int hwForStudentsId;
+    private Long studentId;
 
-    private GroupTable groupHwForStudents;
+    private TgUser studentName;
 
     private int lessonNumber;
 
-    private String hwDoc;
+    private String hwFromStudent;
+
 }

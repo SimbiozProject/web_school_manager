@@ -1,7 +1,7 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.TgUserTable;
-import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
+import com.example.web_school_manager.bean.TgUser;
+import com.example.web_school_manager.dao.repository.TgUserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class NewAdminControllerIntTest {
     @Autowired
-    TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
+    TgUserRepository tgUserRepository;
 
     @Autowired
     MockMvc mockMvc;
@@ -164,7 +164,7 @@ class NewAdminControllerIntTest {
             .andExpect(status().isOk())
             .andReturn();
 
-    Optional<TgUserTable> tgUserTable = tgUserTableDaoWebRepository.findById(6L);
+    Optional<TgUser> tgUserTable = tgUserRepository.findById(6L);
     assertThat(tgUserTable.get().getBlockUser()).isEqualTo(false);
 }
 

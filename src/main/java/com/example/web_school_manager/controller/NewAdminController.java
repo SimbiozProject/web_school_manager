@@ -1,6 +1,6 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.dao.service.AdminService;
 import java.util.List;
 import java.util.Optional;
@@ -37,18 +37,18 @@ public class NewAdminController {
     }
 
     @GetMapping("/userBlock")
-    public List<TgUserTable> blackListPage() {
+    public List<TgUser> blackListPage() {
         return adminService.findAllBlockUser();
     }
 
     @GetMapping("/findUserForBlock")
-    public Optional<TgUserTable> searchUserForBlock(String userName) {
+    public Optional<TgUser> searchUserForBlock(String userName) {
         return adminService.searchTgUserForBlockList(userName);
     }
 
     @GetMapping("/blockUserDelete" + "/{id}")
-    public Optional<TgUserTable> deleteTgUserById(@PathVariable("id") Long id) {
-        Optional<TgUserTable> tgUserTable = adminService.findBlockUserById(id);
+    public Optional<TgUser> deleteTgUserById(@PathVariable("id") Long id) {
+        Optional<TgUser> tgUserTable = adminService.findBlockUserById(id);
         return tgUserTable;
     }
 
@@ -59,8 +59,8 @@ public class NewAdminController {
     }
 
     @GetMapping("/blockUserUpdate" + "/{id}")
-    public Optional<TgUserTable> updateStatusBlock(@PathVariable("id") Long id) {
-        Optional<TgUserTable> tgUserTable = adminService.findBlockUserById(id);
+    public Optional<TgUser> updateStatusBlock(@PathVariable("id") Long id) {
+        Optional<TgUser> tgUserTable = adminService.findBlockUserById(id);
         return tgUserTable;
     }
 

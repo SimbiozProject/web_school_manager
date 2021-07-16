@@ -1,14 +1,10 @@
 package com.example.web_school_manager.client;
 
-import com.example.web_school_manager.bean.CourseTable;
-import com.example.web_school_manager.bean.GroupTable;
-import com.example.web_school_manager.bean.TgUserTable;
-import com.example.web_school_manager.bean.UserRoles;
-import com.example.web_school_manager.dao.repository.MyJpaRepository;
+import com.example.web_school_manager.bean.TgUser;
+
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +20,12 @@ public class UserClient {
 
     private String getAllUsers = "/users";
 
-    public List<TgUserTable> findAll() {
-        ResponseEntity<TgUserTable[]> response =
+    public List<TgUser> findAll() {
+        ResponseEntity<TgUser[]> response =
                 restTemplate.getForEntity(
                         String.format("%s%s", uri, getAllUsers),
-                        TgUserTable[].class);
-        TgUserTable[] users = response.getBody();
+                        TgUser[].class);
+        TgUser[] users = response.getBody();
         return Arrays.asList(users);
     }
 }
