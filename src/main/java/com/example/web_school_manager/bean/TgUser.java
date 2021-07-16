@@ -1,22 +1,31 @@
 package com.example.web_school_manager.bean;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"fromStudent", "usersAnswers"})
 public class TgUser implements Serializable {
+
+    public TgUser(Long id, String userName, Boolean blockUser) {
+        this.id = id;
+        this.userName = userName;
+        this.blockUser = blockUser;
+    }
+
+    public TgUser(Long id, Boolean blockUser) {
+        this.id = id;
+        this.blockUser = blockUser;
+    }
+
+    public TgUser(String userName) {
+        this.userName = userName;
+    }
 
     private Long id;
 
@@ -44,22 +53,5 @@ public class TgUser implements Serializable {
 
     private Boolean payment;
 
-    private Set<HwFromStudent> fromStudent;
 
-    private Set<UsersAnswer> usersAnswers;
-
-    public TgUser(Long id, String userName, Boolean blockUser) {
-        this.id = id;
-        this.userName = userName;
-        this.blockUser = blockUser;
-    }
-
-    public TgUser(Long id, Boolean blockUser) {
-        this.id = id;
-        this.blockUser = blockUser;
-    }
-
-    public TgUser(String userName) {
-        this.userName = userName;
-    }
 }
