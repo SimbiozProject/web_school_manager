@@ -4,5 +4,5 @@ import com.example.web_school_manager.bean.Crm;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CrmUserTableRepository implements MyJpaRepository<Crm, Long> {
+public class CrmRepository implements MyJpaRepository<Crm, Long> {
 }

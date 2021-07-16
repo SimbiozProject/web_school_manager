@@ -1,7 +1,7 @@
 package com.example.web_school_manager.dao.service;
 
 import com.example.web_school_manager.bean.EnglishTest;
-import com.example.web_school_manager.dao.repository.QuestionAnswerTableRepository;
+import com.example.web_school_manager.dao.repository.EnglishTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,30 +9,30 @@ import java.util.List;
 
 
 @Service
-public class QuestionAnswerTableDaoWebService {
+public class EnglishTestService {
 
     @Autowired
-    private QuestionAnswerTableRepository questionAnswerTableRepository;
+    private EnglishTestRepository englishTestRepository;
 
     public List<EnglishTest> findAll() {
-        return questionAnswerTableRepository.findAll();
+        return englishTestRepository.findAll();
     }
 
     public void addToDb(EnglishTest newQuestion) {
-        questionAnswerTableRepository.save(newQuestion);
+        englishTestRepository.save(newQuestion);
     }
 
     public EnglishTest findById(Long id) {
-        return questionAnswerTableRepository.findQuestionAnswerTablesById(id);
+        return englishTestRepository.findQuestionAnswerTablesById(id);
     }
 
     public void deleteById(Long id) {
-        questionAnswerTableRepository.deleteById(id);
+        englishTestRepository.deleteById(id);
     }
 
     public void updateDataInTest(Long id, String question, String firstAnswer, String secondAnswer,
                                  String thirdAnswer, String fourthAnswer, String rightAnswer) {
-        questionAnswerTableRepository.updateDataInTest(id, question, firstAnswer, secondAnswer,
+        englishTestRepository.updateDataInTest(id, question, firstAnswer, secondAnswer,
                 thirdAnswer, fourthAnswer, rightAnswer);
     }
 }

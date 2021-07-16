@@ -5,7 +5,7 @@ import com.example.web_school_manager.bean.EnglishTest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuestionAnswerTableRepository implements MyJpaRepository<EnglishTest, Long> {
+public class EnglishTestRepository implements MyJpaRepository<EnglishTest, Long> {
 
     public EnglishTest findQuestionAnswerTablesById(Long id) {
         return null;

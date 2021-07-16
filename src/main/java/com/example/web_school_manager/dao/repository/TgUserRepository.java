@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TgUserTableDaoWebRepository implements MyJpaRepository<TgUser, Long> {
+public class TgUserRepository implements MyJpaRepository<TgUser, Long> {
 
     public Optional<TgUser> findByUserName(String userName) {
         return null;

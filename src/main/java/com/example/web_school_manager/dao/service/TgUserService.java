@@ -1,7 +1,7 @@
 package com.example.web_school_manager.dao.service;
 
 import com.example.web_school_manager.bean.TgUser;
-import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
+import com.example.web_school_manager.dao.repository.TgUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,54 +9,54 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class TgUserTableDaoWebService {
+public class TgUserService {
 
     @Autowired
-    private TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
+    private TgUserRepository tgUserRepository;
 
     @Transactional
     public Iterable<TgUser> findAll() {
-        return tgUserTableDaoWebRepository.findAll();
+        return tgUserRepository.findAll();
     }
 
     @Transactional
     public Optional<TgUser> findById(Long id) {
-        return tgUserTableDaoWebRepository.findById(id);
+        return tgUserRepository.findById(id);
     }
 
     @Transactional
     public Optional<TgUser> findByUserName(String userName) {
-        return tgUserTableDaoWebRepository.findByUserName(userName);
+        return tgUserRepository.findByUserName(userName);
     }
 
     @Transactional
     public Optional<TgUser> findByFirstName(String firstName) {
-        return tgUserTableDaoWebRepository.findByFirstName(firstName);
+        return tgUserRepository.findByFirstName(firstName);
     }
 
     @Transactional
     public Optional<TgUser> findByLastName(String lastName) {
-        return tgUserTableDaoWebRepository.findByLastName(lastName);
+        return tgUserRepository.findByLastName(lastName);
     }
 
     @Transactional
     public TgUser findByEmail(String email) {
-        return tgUserTableDaoWebRepository.findByEmail(email);
+        return tgUserRepository.findByEmail(email);
     }
 
     @Transactional
     public void deleteById(Long id) {
-        tgUserTableDaoWebRepository.deleteById(id);
+        tgUserRepository.deleteById(id);
     }
 
     @Transactional
     public void deleteAll() {
-        tgUserTableDaoWebRepository.deleteAll();
+        tgUserRepository.deleteAll();
     }
 
     @Transactional
     public Long countAll() {
-        return tgUserTableDaoWebRepository.count();
+        return tgUserRepository.count();
     }
 
 }

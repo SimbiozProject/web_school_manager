@@ -1,7 +1,7 @@
 package com.example.web_school_manager.controller;
 
 import com.example.web_school_manager.bean.EnglishTest;
-import com.example.web_school_manager.dao.service.QuestionAnswerTableDaoWebService;
+import com.example.web_school_manager.dao.service.EnglishTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class
-QuestionAnswerTableController {
+EnglishTestController {
 
     @Autowired
-    QuestionAnswerTableDaoWebService questionAnswerTableDaoWebService;
+    EnglishTestService englishTestService;
 
     @GetMapping(value = "test")
     public ModelAndView testPage() {
         ModelAndView modelAndView = new ModelAndView("/test");
-        modelAndView.addObject("testList", questionAnswerTableDaoWebService.findAll());
+        modelAndView.addObject("testList", englishTestService.findAll());
         return modelAndView;
     }
 
@@ -46,7 +46,7 @@ QuestionAnswerTableController {
                 .fourthAnswer(fourthAnswer)
                 .rightAnswer(rightAnswer)
                 .build();
-        questionAnswerTableDaoWebService.addToDb(newQuestion);
+        englishTestService.addToDb(newQuestion);
         modelAndView.setViewName("redirect:/test");
         return modelAndView;
 
@@ -55,7 +55,7 @@ QuestionAnswerTableController {
     @GetMapping(value = "update" + "/{id}")
     public ModelAndView updateTestPage(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/updateTest");
-        modelAndView.addObject("testList", questionAnswerTableDaoWebService.findById(id));
+        modelAndView.addObject("testList", englishTestService.findById(id));
         return modelAndView;
     }
 
@@ -68,7 +68,7 @@ QuestionAnswerTableController {
                                    @RequestParam(value = "fourthAnswer") String fourthAnswer,
                                    @RequestParam(value = "rightAnswer") String rightAnswer) {
         ModelAndView modelAndView = new ModelAndView("/updateTest");
-        questionAnswerTableDaoWebService.updateDataInTest(id, question, firstAnswer, secondAnswer, thirdAnswer,
+        englishTestService.updateDataInTest(id, question, firstAnswer, secondAnswer, thirdAnswer,
                 fourthAnswer, rightAnswer);
         modelAndView.setViewName("redirect:/test");
         return modelAndView;
@@ -78,14 +78,14 @@ QuestionAnswerTableController {
     @GetMapping(value = "delete" + "/{id}")
     public ModelAndView deleteTestPage(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/deleteTest");
-        modelAndView.addObject("test", questionAnswerTableDaoWebService.findById(id));
+        modelAndView.addObject("test", englishTestService.findById(id));
         return modelAndView;
     }
 
     @PostMapping(value = "delete" + "/{id}")
     public ModelAndView deleteTest(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/deleteTest");
-        questionAnswerTableDaoWebService.deleteById(id);
+        englishTestService.deleteById(id);
         modelAndView.setViewName("redirect:/test");
         return modelAndView;
     }

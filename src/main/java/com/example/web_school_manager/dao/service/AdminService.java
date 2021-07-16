@@ -5,7 +5,7 @@ import com.example.web_school_manager.bean.Group;
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.bean.Roles;
 import com.example.web_school_manager.client.UserClient;
-import com.example.web_school_manager.dao.repository.TgUserTableDaoWebRepository;
+import com.example.web_school_manager.dao.repository.TgUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +17,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminService {
 
-    private final TgUserTableDaoWebRepository tgUserTableDaoWebRepository;
+    private final TgUserRepository tgUserRepository;
     private final UserClient userClient;
 
     public List<TgUser> findAllBlockUser(){
-        return tgUserTableDaoWebRepository.findTgUserTableByBlockUserIsTrue();
+        return tgUserRepository.findTgUserTableByBlockUserIsTrue();
     }
 
     public void deleteUserById(Long id){
-        tgUserTableDaoWebRepository.deleteTgUserTableById(id);
+        tgUserRepository.deleteTgUserTableById(id);
     }
 
     public Optional<TgUser> findBlockUserById(Long id){
-        return tgUserTableDaoWebRepository.findTgUserTableById(id);
+        return tgUserRepository.findTgUserTableById(id);
     }
 
     public void updateBlockStatusUser(Long id, Boolean blockUser){
-        tgUserTableDaoWebRepository.updateBlockUserStatus(id, blockUser);
+        tgUserRepository.updateBlockUserStatus(id, blockUser);
     }
 
     public Optional<TgUser> searchTgUserForBlockList(String userName){
-        return tgUserTableDaoWebRepository.findByUserName(userName);
+        return tgUserRepository.findByUserName(userName);
     }
 
     public List<TgUser> findAllUsers(){
@@ -47,11 +47,11 @@ public class AdminService {
     public void updateDataOfUser(Long id, String userName, String firstName, String lastName, String email,
                                  Date dateOfBirthday, Boolean active, Boolean blockUser, Boolean payment, Roles roles,
                                  Course courseUser, Group groupUser){
-        tgUserTableDaoWebRepository.updateUsersData(id, userName, firstName, lastName, email, dateOfBirthday,
+        tgUserRepository.updateUsersData(id, userName, firstName, lastName, email, dateOfBirthday,
                 active, blockUser, payment, roles, courseUser, groupUser);
     }
 
     public void addUserToDB(TgUser newTgUser){
-        tgUserTableDaoWebRepository.save(newTgUser);
+        tgUserRepository.save(newTgUser);
     }
 }
