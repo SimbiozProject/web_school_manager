@@ -1,6 +1,5 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.EnglishTest;
 import com.example.web_school_manager.dao.service.EnglishTestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
+import static com.example.util.EnglishTestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class EnglishTestControllerTest {
@@ -23,132 +22,99 @@ class EnglishTestControllerTest {
     @MockBean
     EnglishTestService englishTestService;
 
+    Long id = 1L;
+    String question = "q";
+    String first = "f";
+    String second = "s";
+    String third = "th";
+    String fourth = "fo";
+    String right = "r";
+
 
     @Test
     void testPage() {
-        String viewName = "/test";
-        String attributeName = "testList";
-        when(englishTestService.findAll()).thenReturn(makeExpectedList());
+        when(englishTestService.findAll()).thenReturn(makeExpList());
         ModelAndView actualResult = englishTestController.testPage();
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedResultWithList(viewName, attributeName));
+                .isEqualTo(getExpTestPage());
     }
 
 
     @Test
     void addTestPage() {
-        String viewName = "/addTest";
         ModelAndView actualResult = englishTestController.addTestPage();
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedResultWithoutService(viewName));
+                .isEqualTo(getExpAddTestPage());
     }
 
     @Test
     void addTest() {
         doAnswer((i) -> {
-            assertEquals(makeExpectedEnglishTest(), i.getArgument(0));
+            assertEquals(makeExpEnglishTest(), i.getArgument(0));
             return null;
-        }).when(englishTestService).addToDb(makeExpectedEnglishTest());
-        ModelAndView actualResult = englishTestController.addTest("q", "f", "s", "th", "fo", "r");
+        }).when(englishTestService).addToDb(makeExpEnglishTest());
+        ModelAndView actualResult = englishTestController.addTest(question, first, second, third, fourth, right);
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedResultAddTest());
+                .isEqualTo(getExpAddTest());
 
     }
 
 
     @Test
     void updateTestPage() {
-        Long id = 1L;
-        when(englishTestService.findById(id)).thenReturn(makeExpectedEnglishTest());
+        when(englishTestService.findById(id)).thenReturn(makeExpEnglishTest());
         ModelAndView actualResult = englishTestController.updateTestPage(id);
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedResultUpdateTestPage(id));
+                .isEqualTo(getExpUpdateTestPage(id));
     }
 
 
     @Test
     void updateTest() {
         doAnswer((i) -> {
-            assertEquals(1L, (Long) i.getArgument(0));
-            assertEquals("q", i.getArgument(1));
-            assertEquals("f", i.getArgument(2));
-            assertEquals("s", i.getArgument(3));
-            assertEquals("th", i.getArgument(4));
-            assertEquals("fo", i.getArgument(5));
-            assertEquals("r", i.getArgument(6));
+            assertEquals(id, i.getArgument(0));
+            assertEquals(question, i.getArgument(1));
+            assertEquals(first, i.getArgument(2));
+            assertEquals(second, i.getArgument(3));
+            assertEquals(third, i.getArgument(4));
+            assertEquals(fourth, i.getArgument(5));
+            assertEquals(right, i.getArgument(6));
             return null;
-        }).when(englishTestService).updateDataInTest(1L, "q", "f", "s", "th", "fo", "r");
-        //doNothing().when(englishTestService).updateDataInTest(1L, "q", "f", "s", "th", "fo", "r");
+        }).when(englishTestService).updateDataInTest(id, question, first, second, third, fourth, right);
+        //doNothing().when(englishTestService).updateDataInTest(id, question, first, second, third, fourth, right);
         //todo what is better: doAnswer or doNothing?
-        ModelAndView actualResult = englishTestController.updateTest(1L, "q", "f", "s", "th", "fo", "r");
+        ModelAndView actualResult = englishTestController.updateTest(id, question, first, second, third, fourth, right);
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedResultUpdateTest());
+                .isEqualTo(getExpUpdateTest());
     }
-
 
 
     @Test
     void deleteTestPage() {
+        when(englishTestService.findById(id)).thenReturn(makeExpEnglishTest());
+        ModelAndView actualResult = englishTestController.deleteTestPage(id);
+        assertThat(actualResult).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpDeleteTestPage(id));
     }
+
 
     @Test
     void deleteTest() {
+        doAnswer((i) -> {
+            assertEquals(id, i.getArgument(0));
+            return null;
+        }).when(englishTestService).deleteById(id);
+        ModelAndView actualResult = englishTestController.deleteTest(id);
+        assertThat(actualResult).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpDeleteTest(id));
+
     }
 
-    private List<EnglishTest> makeExpectedList() {
-        return List.of(
-                EnglishTest.builder()
-                        .id(1L).question("q").firstAnswer("f").secondAnswer("s").thirdAnswer("th").fourthAnswer("fo").rightAnswer("r")
-                        .build(),
-                EnglishTest.builder()
-                        .id(2L).question("q2").firstAnswer("f2").secondAnswer("s2").thirdAnswer("th2").fourthAnswer("fo2").rightAnswer("r2")
-                        .build());
-    }
-
-    private ModelAndView getExpectedResultWithList(String viewName, String attributeName) {
-        ModelAndView modelAndView = new ModelAndView(viewName);
-        modelAndView.addObject(attributeName, makeExpectedList());
-        return modelAndView;
-    }
-
-    private ModelAndView getExpectedResultWithoutService(String viewName) {
-        ModelAndView modelAndView = new ModelAndView(viewName);
-        return modelAndView;
-    }
-
-    private ModelAndView getExpectedResultAddTest() {
-        ModelAndView modelAndView = new ModelAndView("/addTest");
-        modelAndView.setViewName("redirect:/test");
-        return modelAndView;
-    }
-
-
-    private EnglishTest makeExpectedEnglishTest() {
-        return EnglishTest.builder()
-                .id(1L)
-                .question("q")
-                .firstAnswer("f")
-                .secondAnswer("s")
-                .thirdAnswer("th")
-                .fourthAnswer("fo")
-                .rightAnswer("r")
-                .build();
-    }
-
-    private ModelAndView getExpectedResultUpdateTestPage(Long id) {
-        ModelAndView modelAndView = new ModelAndView("/updateTest");
-        modelAndView.addObject("testList", makeExpectedEnglishTest());
-        return modelAndView;
-    }
-
-    private ModelAndView getExpectedResultUpdateTest() {
-        ModelAndView modelAndView = new ModelAndView("/updateTest");
-        modelAndView.setViewName("redirect:/test");
-        return modelAndView;
-    }
 }
