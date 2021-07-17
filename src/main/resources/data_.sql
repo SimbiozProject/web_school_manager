@@ -1,4 +1,4 @@
-CREATE TABLE `crm_registration` (
+CREATE TABLE `crm` (
                                     `user_id` bigint NOT NULL,
                                     `city_name` varchar(255) DEFAULT NULL,
                                     `country_name` varchar(255) DEFAULT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE `crm_registration` (
                                     CONSTRAINT FOREIGN KEY (`user_name`) REFERENCES `tg_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.crm_registration (user_id, city_name, country_name, date_of_birth, e_mail, first_name, last_name, phone_number, user_name) VALUES ((1, 'Minsk', 'Belarus', '1978-07-27', 'qwerty@mail.ru', 'Vova', 'Wef', '1234567', 1),
+INSERT INTO crm (user_id, city_name, country_name, date_of_birth, e_mail, first_name, last_name, phone_number, user_name) VALUES ((1, 'Minsk', 'Belarus', '1978-07-27', 'qwerty@mail.ru', 'Vova', 'Wef', '1234567', 1),
                                                                                                                                                     (2, 'Moscow', 'Russia', '2002-03-11', 'dfghj@gmail.com', 'Katya', 'Wash', '4534545', 2),
                                                                                                                                                     (3, 'Minsk', 'Belarus', '1992-07-23', 'zxcvbn@gmail.com', 'Luda', 'Tyk', '5675674', 3),
                                                                                                                                                     (4, 'Kiev', 'Ukraine', '1991-07-01', 'plkmokmok@gmail.com', 'Olga', 'Lop', '2345675', 4),
@@ -41,7 +41,7 @@ CREATE TABLE `tg_user` (
                            CONSTRAINT FOREIGN KEY (`course_name`) REFERENCES `courses` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.tg_user (id_user, active, block_user, date_of_birthday, email, first_name, last_name, payment, role, user_name, course_name, group_number) VALUES ((1, true, false, '1978-07-27', 'qwerty@mail.ru', 'Vova', 'Wef', true, 'user', 'qaz', 1, 1),
+INSERT INTO tg_user (id_user, active, block_user, date_of_birthday, email, first_name, last_name, payment, role, user_name, course_name, group_number) VALUES ((1, true, false, '1978-07-27', 'qwerty@mail.ru', 'Vova', 'Wef', true, 'user', 'qaz', 1, 1),
                                                                                                                                                                     (2, true, false, '2002-03-11', 'dfghj@gmail.com', 'Katya', 'Wash', true, 'admin', 'wsx', 2, 2),
                                                                                                                                                                     (3, true, false, '1992-07-23', 'zxcvbn@gmail.com', 'Luda', 'Tyk', true, 'teacher', 'edc', 3, 3),
                                                                                                                                                                     (4, true, false, '1991-07-01', 'plkmokmok@gmail.com', 'Olga', 'Lop', true, 'student', 'rfv', 4, 4),
@@ -56,7 +56,7 @@ CREATE TABLE `student_group` (
                                  CONSTRAINT FOREIGN KEY (`course_name`) REFERENCES `courses` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.student_group (group_id, group_number, course_name) VALUES ((1, 11, 1),
+INSERT INTO student_group (group_id, group_number, course_name) VALUES ((1, 11, 1),
                                                                             (2, 10, 2),
                                                                             (3, 9, 3),
                                                                             (4, 8, 4),
@@ -68,7 +68,7 @@ CREATE TABLE `courses` (
                            PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.courses (course_id, course_name) VALUES ((1, 'Level 0'),
+INSERT INTO courses (course_id, course_name) VALUES ((1, 'Level 0'),
                                                         (2, 'Level Advanced'),
                                                         (3, 'Level 1'),
                                                         (4, 'Level 2'),
@@ -86,7 +86,7 @@ CREATE TABLE `user_answer` (
                                CONSTRAINT FOREIGN KEY (`user_name`) REFERENCES `tg_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.user_answer (user_id, answer, question_id, user_name) VALUES ((1, '1', 1, 1),
+INSERT INTO user_answer (user_id, answer, question_id, user_name) VALUES ((1, '1', 1, 1),
                                                                                 (2, '2', 2, 2),
                                                                                 (3, '3', 3, 3),
                                                                                 (4, '1', 4, 4),
@@ -102,7 +102,7 @@ CREATE TABLE `hw_for_students` (
                                    CONSTRAINT FOREIGN KEY (`group_number`) REFERENCES `student_group` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.hw_for_students (hw_id, hw_doc, lesson_number, group_number) VALUES ((1, 'photo', 2, 1),
+INSERT INTO hw_for_students (hw_id, hw_doc, lesson_number, group_number) VALUES ((1, 'photo', 2, 1),
                                                                                     (2, 'doc', 3, 2),
                                                                                     (3, 'photo', 6, 3),
                                                                                     (4, 'photo', 7, 1),
@@ -118,7 +118,7 @@ CREATE TABLE `hw_from_students` (
                                     CONSTRAINT FOREIGN KEY (`student_name`) REFERENCES `tg_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.hw_from_students (student_id, students_hw, lesson_number, student_name) VALUES ((1, 'doc', 4, 1),
+INSERT INTO hw_from_students (student_id, students_hw, lesson_number, student_name) VALUES ((1, 'doc', 4, 1),
                                                                                                 (2, 'doc', 6, 2),
                                                                                                 (3, 'doc', 8, 3),
                                                                                                 (4, 'doc', 3, 4),
@@ -135,7 +135,7 @@ CREATE TABLE `question_answer` (
                                    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO bot.question_answer (id, first_answer, fourth_answer, question, right_answer, second_answer, third_answer) VALUES ((1, 'be', 'an', '1. My favorite color _____ green.', 'is', 'are', 'is'),
+INSERT INTO question_answer (id, first_answer, fourth_answer, question, right_answer, second_answer, third_answer) VALUES ((1, 'be', 'an', '1. My favorite color _____ green.', 'is', 'are', 'is'),
                                                                                                                                 (2, 'at', 'on', '2. We get up _____ 7 o’clock.', 'at', 'in', 'of'),
                                                                                                                                 (3, 'a', '-', '3. There is _____ milk in the fridge.', 'some', 'some', 'the'),
                                                                                                                                 (4, 'of', 'from', '4. Are you _____ Italy?', 'from', 'out', 'at'),
