@@ -1,5 +1,6 @@
 package com.example.web_school_manager.controller;
 
+import com.example.web_school_manager.bean.EnglishTest;
 import com.example.web_school_manager.dao.service.EnglishTestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,16 @@ class EnglishTestControllerTest {
             return null;
         }).when(englishTestService).addToDb(makeExpEnglishTest());
         ModelAndView actualResult = englishTestController.addTest(question, first, second, third, fourth, right);
+        EnglishTest actuslTest = EnglishTest.builder()
+                .id(id)
+                .question(question)
+                .firstAnswer(first)
+                .secondAnswer(second)
+                .thirdAnswer(third)
+                .fourthAnswer(fourth)
+                .rightAnswer(right)
+                .build();
+        assertEquals(makeExpEnglishTest(), actuslTest);
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
                 .isEqualTo(getExpAddTest());
