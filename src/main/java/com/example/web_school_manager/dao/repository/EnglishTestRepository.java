@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EnglishTestRepository implements MyJpaRepository<EnglishTest, Long> {
 
-    public EnglishTest findQuestionAnswerTablesById(Long id) {
+    public EnglishTest findEnglishTestById(Long id) {
         return null;
     }
+
 
     public void updateDataInTest(Long id, String question, String firstAnswer, String secondAnswer, String thirdAnswer,
                           String fourthAnswer, String rightAnswer){

@@ -23,7 +23,7 @@ public class EnglishTestService {
     }
 
     public EnglishTest findById(Long id) {
-        return englishTestRepository.findQuestionAnswerTablesById(id);
+        return englishTestRepository.findEnglishTestById(id);
     }
 
     public void deleteById(Long id) {
