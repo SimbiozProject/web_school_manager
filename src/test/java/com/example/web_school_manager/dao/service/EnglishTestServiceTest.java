@@ -1,6 +1,7 @@
 package com.example.web_school_manager.dao.service;
 
 import com.example.web_school_manager.bean.EnglishTest;
+import com.example.web_school_manager.client.EnglishTestClient;
 import com.example.web_school_manager.dao.repository.EnglishTestRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ class EnglishTestServiceTest {
     @MockBean
     EnglishTestRepository englishTestRepository;
 
+    @MockBean
+    EnglishTestClient englishTestClient;
+
     Long id = 1L;
     String question = "q";
     String first = "f";
@@ -35,7 +39,7 @@ class EnglishTestServiceTest {
 
     @Test
     void findAll() {
-        when(englishTestRepository.findAll()).thenReturn(makeExpList());
+        when(englishTestClient.findAll()).thenReturn(makeExpList());
         List<EnglishTest> actual = englishTestService.findAll();
         assertThat(actual).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
@@ -55,7 +59,7 @@ class EnglishTestServiceTest {
 
     @Test
     void findById() {
-        when(englishTestRepository.findEnglishTestById(id)).thenReturn(makeExpEnglishTest());
+        when(englishTestClient.findEnglishTestById(id)).thenReturn(makeExpEnglishTest());
         EnglishTest actual = englishTestService.findById(id);
         assertThat(actual).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()

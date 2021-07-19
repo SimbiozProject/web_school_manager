@@ -1,6 +1,8 @@
 package com.example.util;
 
 import com.example.web_school_manager.bean.EnglishTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -82,4 +84,30 @@ public class EnglishTestUtil {
         return modelAndView;
     }
 
+    public static ResponseEntity<EnglishTest[]> makeMockedResponseEntity() {
+        return new ResponseEntity<EnglishTest[]>(makeMockedTests(), HttpStatus.OK);
+    }
+
+    public static EnglishTest[] makeMockedTests() {
+        EnglishTest[] tests = {
+                EnglishTest.builder()
+                        .id(1L)
+                        .question("q")
+                        .firstAnswer("f")
+                        .secondAnswer("s")
+                        .thirdAnswer("th")
+                        .fourthAnswer("fo")
+                        .rightAnswer("r")
+                        .build(),
+                EnglishTest.builder()
+                        .id(2L)
+                        .question("q2")
+                        .firstAnswer("f2")
+                        .secondAnswer("s2")
+                        .thirdAnswer("th2")
+                        .fourthAnswer("fo2")
+                        .rightAnswer("r2")
+                        .build()};
+        return tests;
+    }
 }
