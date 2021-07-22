@@ -34,51 +34,51 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/userBlock")
-    public ModelAndView blackListPage(){
-        ModelAndView modelAndView = new ModelAndView("/userBlock.html");
-        modelAndView.addObject("listBlockUser", adminService.findAllBlockUser());
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/searchUserForBlock")
-    public ModelAndView searchUserForBlock(@ModelAttribute(name = "userName") String userName){
-        ModelAndView modelAndView = new ModelAndView("/listUsersForBlock.html");
-        modelAndView.addObject("searchForBlockUser", adminService.searchTgUserForBlockList(userName));
-        return modelAndView;
-    }
-
-
-
-    @GetMapping(value = "deleteBlockUser" + "/{id}")
-    public ModelAndView deleteTgUserById(@PathVariable(name = "id") Long id){
-        ModelAndView modelAndView = new ModelAndView("/deleteBlockUsers.html");
-        modelAndView.addObject("blockUserDel", adminService.findBlockUserById(id));
-        return modelAndView;
-    }
-    @PostMapping(value = "deleteBlockUser" + "/{id}")
-    public ModelAndView deleteAndReturnToBlackList(@PathVariable(name = "id") Long id) {
-        ModelAndView modelAndView = new ModelAndView("/deleteBlockUsers.html");
-        adminService.deleteUserById(id);
-        modelAndView.setViewName("redirect:/admin/userBlock");
-        return modelAndView;
-    }
-
-    @GetMapping(value = "updateBlockUser" + "/{id}")
-    public ModelAndView updateStatusBlock(@PathVariable(name = "id") Long id){
-        ModelAndView modelAndView = new ModelAndView("/updateBlockStatus.html");
-        modelAndView.addObject("listBlockUser", adminService.findBlockUserById(id));
-        return modelAndView;
-    }
-
-    @PostMapping(value = "updateBlockUser" + "/{id}")
-    public ModelAndView updateStatusBlockUser(@PathVariable(name = "id") Long id,
-                                              @RequestParam(value = "blockUser") Boolean blockUser){
-        ModelAndView modelAndView = new ModelAndView("/updateBlockStatus.html");
-        adminService.updateBlockStatusUser(id, blockUser);
-        modelAndView.setViewName("redirect:/admin/userBlock");
-        return modelAndView;
-    }
+//    @GetMapping(value = "/admin/userBlock")
+//    public ModelAndView blackListPage(){
+//        ModelAndView modelAndView = new ModelAndView("/userBlock.html");
+//        modelAndView.addObject("listBlockUser", adminService.findAllBlockUser());
+//        return modelAndView;
+//    }
+//
+//    @GetMapping(value = "/searchUserForBlock")
+//    public ModelAndView searchUserForBlock(@ModelAttribute(name = "userName") String userName){
+//        ModelAndView modelAndView = new ModelAndView("/listUsersForBlock.html");
+//        modelAndView.addObject("searchForBlockUser", adminService.searchTgUserForBlockList(userName));
+//        return modelAndView;
+//    }
+//
+//
+//
+//    @GetMapping(value = "deleteBlockUser" + "/{id}")
+//    public ModelAndView deleteTgUserById(@PathVariable(name = "id") Long id){
+//        ModelAndView modelAndView = new ModelAndView("/deleteBlockUsers.html");
+//        modelAndView.addObject("blockUserDel", adminService.findBlockUserById(id));
+//        return modelAndView;
+//    }
+//    @PostMapping(value = "deleteBlockUser" + "/{id}")
+//    public ModelAndView deleteAndReturnToBlackList(@PathVariable(name = "id") Long id) {
+//        ModelAndView modelAndView = new ModelAndView("/deleteBlockUsers.html");
+//        adminService.deleteUserById(id);
+//        modelAndView.setViewName("redirect:/admin/userBlock");
+//        return modelAndView;
+//    }
+//
+//    @GetMapping(value = "updateBlockUser" + "/{id}")
+//    public ModelAndView updateStatusBlock(@PathVariable(name = "id") Long id){
+//        ModelAndView modelAndView = new ModelAndView("/updateBlockStatus.html");
+//        modelAndView.addObject("listBlockUser", adminService.findBlockUserById(id));
+//        return modelAndView;
+//    }
+//
+//    @PostMapping(value = "updateBlockUser" + "/{id}")
+//    public ModelAndView updateStatusBlockUser(@PathVariable(name = "id") Long id,
+//                                              @RequestParam(value = "blockUser") Boolean blockUser){
+//        ModelAndView modelAndView = new ModelAndView("/updateBlockStatus.html");
+//        adminService.updateBlockStatusUser(id, blockUser);
+//        modelAndView.setViewName("redirect:/admin/userBlock");
+//        return modelAndView;
+//    }
 
     @GetMapping(value = "deleteUser" + "/{id}")
     public ModelAndView deleteUserById(@PathVariable(name = "id") Long id){
