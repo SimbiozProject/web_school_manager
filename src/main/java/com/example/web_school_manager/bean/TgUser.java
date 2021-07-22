@@ -23,6 +23,15 @@ public class TgUser implements Serializable {
         this.blockUser = blockUser;
     }
 
+    public TgUser(Long id, String userName, String email, Boolean active, Boolean blockUser, Boolean payment) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.active = active;
+        this.blockUser = blockUser;
+        this.payment = payment;
+    }
+
     public TgUser(String userName) {
         this.userName = userName;
     }
@@ -53,5 +62,55 @@ public class TgUser implements Serializable {
 
     private Boolean payment;
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public Date getDateOfBirthday() {
+        return dateOfBirthday;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public Course getCourseUser() {
+        return courseUser;
+    }
+
+    public Group getGroupUser() {
+        return groupUser;
+    }
+
+    public Boolean getBlockUser() {
+        return blockUser;
+    }
+
+    public Boolean getPayment() {
+        return payment;
+    }
 }
