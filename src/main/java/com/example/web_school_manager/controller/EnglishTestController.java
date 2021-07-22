@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class
-EnglishTestController {
+public class EnglishTestController {
 
     @Autowired
     EnglishTestService englishTestService;
@@ -68,8 +67,16 @@ EnglishTestController {
                                    @RequestParam(value = "fourthAnswer") String fourthAnswer,
                                    @RequestParam(value = "rightAnswer") String rightAnswer) {
         ModelAndView modelAndView = new ModelAndView("/updateTest");
-        englishTestService.updateDataInTest(id, question, firstAnswer, secondAnswer, thirdAnswer,
-                fourthAnswer, rightAnswer);
+        EnglishTest updateQuestion = EnglishTest.builder()
+                .id(id)
+                .question(question)
+                .firstAnswer(firstAnswer)
+                .secondAnswer(secondAnswer)
+                .thirdAnswer(thirdAnswer)
+                .fourthAnswer(fourthAnswer)
+                .rightAnswer(rightAnswer)
+                .build();
+        englishTestService.updateDataInTest(updateQuestion);
         modelAndView.setViewName("redirect:/test");
         return modelAndView;
 

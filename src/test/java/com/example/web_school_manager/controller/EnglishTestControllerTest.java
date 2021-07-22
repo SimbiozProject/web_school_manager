@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.example.util.EnglishTestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 class EnglishTestControllerTest {
@@ -57,7 +58,8 @@ class EnglishTestControllerTest {
             return null;
         }).when(englishTestService).addToDb(makeExpEnglishTest());
         ModelAndView actualResult = englishTestController.addTest(question, first, second, third, fourth, right);
-        EnglishTest actuslTest = EnglishTest.builder()
+        //todo refactor with verify
+       /* EnglishTest actualTest = EnglishTest.builder()
                 .id(id)
                 .question(question)
                 .firstAnswer(first)
@@ -66,7 +68,17 @@ class EnglishTestControllerTest {
                 .fourthAnswer(fourth)
                 .rightAnswer(right)
                 .build();
-        assertEquals(makeExpEnglishTest(), actuslTest);
+        verify(englishTestService, times(1)).addToDb(actualTest);*/
+        EnglishTest actualTest = EnglishTest.builder()
+                .id(id)
+                .question(question)
+                .firstAnswer(first)
+                .secondAnswer(second)
+                .thirdAnswer(third)
+                .fourthAnswer(fourth)
+                .rightAnswer(right)
+                .build();
+        assertEquals(makeExpEnglishTest(), actualTest);
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
                 .isEqualTo(getExpAddTest());
@@ -86,19 +98,8 @@ class EnglishTestControllerTest {
 
     @Test
     void updateTest() {
-        doAnswer((i) -> {
-            assertEquals(id, i.getArgument(0));
-            assertEquals(question, i.getArgument(1));
-            assertEquals(first, i.getArgument(2));
-            assertEquals(second, i.getArgument(3));
-            assertEquals(third, i.getArgument(4));
-            assertEquals(fourth, i.getArgument(5));
-            assertEquals(right, i.getArgument(6));
-            return null;
-        }).when(englishTestService).updateDataInTest(id, question, first, second, third, fourth, right);
-        //doNothing().when(englishTestService).updateDataInTest(id, question, first, second, third, fourth, right);
-        //todo what is better: doAnswer or doNothing?
         ModelAndView actualResult = englishTestController.updateTest(id, question, first, second, third, fourth, right);
+        verify(englishTestService, times(1)).updateDataInTest(makeExpEnglishTest());
         assertThat(actualResult).usingRecursiveComparison()
                 .ignoringAllOverriddenEquals()
                 .isEqualTo(getExpUpdateTest());
