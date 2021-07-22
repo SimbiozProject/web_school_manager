@@ -34,9 +34,7 @@ public class EnglishTestService {
         englishTestClient.deleteById(id);
     }
 
-    public void updateDataInTest(Long id, String question, String firstAnswer, String secondAnswer,
-                                 String thirdAnswer, String fourthAnswer, String rightAnswer) {
-        englishTestClient.updateDataInTest(id, question, firstAnswer, secondAnswer,
-                thirdAnswer, fourthAnswer, rightAnswer);
+    public void updateDataInTest(EnglishTest updateQuestion) {
+        englishTestClient.updateDataInTest(updateQuestion);
     }
 }

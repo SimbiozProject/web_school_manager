@@ -7,19 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static com.example.util.EnglishTestUtil.*;
+import static com.example.util.EnglishTestUtil.makeExpEnglishTest;
+import static com.example.util.EnglishTestUtil.makeExpList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class EnglishTestServiceTest {
-    
+
     @Autowired
     EnglishTestService englishTestService;
 
@@ -29,13 +27,7 @@ class EnglishTestServiceTest {
     @MockBean
     EnglishTestClient englishTestClient;
 
-    Long id = 1L;
-    String question = "q";
-    String first = "f";
-    String second = "s";
-    String third = "th";
-    String fourth = "fo";
-    String right = "r";
+
 
     @Test
     void findAll() {
@@ -49,16 +41,14 @@ class EnglishTestServiceTest {
     @Test
     void addToDb() {
         EnglishTest newQuestion = makeExpEnglishTest();
-        doAnswer((i) -> {
-            assertEquals(makeExpEnglishTest(), i.getArgument(0));
-            return null;
-        }).when(englishTestRepository).save(newQuestion);
         englishTestService.addToDb(newQuestion);
+        verify(englishTestClient, times(1)).save(newQuestion);
 
     }
 
     @Test
     void findById() {
+        Long id = 1L;
         when(englishTestClient.findEnglishTestById(id)).thenReturn(makeExpEnglishTest());
         EnglishTest actual = englishTestService.findById(id);
         assertThat(actual).usingRecursiveComparison()
@@ -68,27 +58,17 @@ class EnglishTestServiceTest {
 
     @Test
     void deleteById() {
-        doAnswer((i) -> {
-            assertEquals(id, i.getArgument(0));
-            return null;
-        }).when(englishTestRepository).deleteById(id);
-        englishTestService.deleteById(id);
+        Long id = 1L;
+        englishTestClient.deleteById(id);
+        verify(englishTestClient, times(1)).deleteById(id);
 
     }
 
     @Test
     void updateDataInTest() {
-        doAnswer((i) -> {
-            assertEquals(id, i.getArgument(0));
-            assertEquals(question, i.getArgument(1));
-            assertEquals(first, i.getArgument(2));
-            assertEquals(second, i.getArgument(3));
-            assertEquals(third, i.getArgument(4));
-            assertEquals(fourth, i.getArgument(5));
-            assertEquals(right, i.getArgument(6));
-            return null;
-        }).when(englishTestRepository).updateDataInTest(id, question, first, second, third, fourth, right);
-        englishTestService.updateDataInTest(id, question, first, second, third, fourth, right);
+        englishTestService.updateDataInTest(makeExpEnglishTest());
+        verify(englishTestClient, times(1)).updateDataInTest(makeExpEnglishTest());
+
 
     }
 }

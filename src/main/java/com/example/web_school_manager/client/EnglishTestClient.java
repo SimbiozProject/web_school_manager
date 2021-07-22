@@ -12,15 +12,16 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class EnglishTestClient  {
+public class EnglishTestClient {
     @Value("${client.processor}")
     private String uri;
     private final RestTemplate restTemplate;
 
-    private final String getListOfTests = "/teacher/test";
-    private final String getTest = "/teacher/update";
-
-
+    private final String getListOfTests = "/test";
+    private final String postSaveTest = "/addTest";
+    private final String update = "/update/";
+    private final String delete = "/delete/";
+    private final String find = "/find/";
 
 
     public List<EnglishTest> findAll() {
@@ -33,39 +34,42 @@ public class EnglishTestClient  {
     }
 
     public void save(EnglishTest newQuestion) {
-        ResponseEntity<EnglishTest[]> response =
-                restTemplate.getForEntity(
-                        String.format("%s%s", uri, getListOfTests),
-                        EnglishTest[].class);
-        EnglishTest[] tests = response.getBody();
+
+        restTemplate.postForEntity(
+                String.format("%s%s", uri, postSaveTest),
+                newQuestion, ResponseEntity.class);
+
 
     }
 
     public EnglishTest findEnglishTestById(Long id) {
-        ResponseEntity<EnglishTest> response =
+        ResponseEntity<EnglishTest> responseUpdate =
                 restTemplate.getForEntity(
-                        String.format("%s%s", uri, getListOfTests),
+                        String.format("%s%s%d", uri, update, id),
                         EnglishTest.class);
-        EnglishTest test = response.getBody();
-        return test;
+        EnglishTest testUpdate = responseUpdate.getBody();
+        /*ResponseEntity<EnglishTest> responseDelete =
+                restTemplate.getForEntity(
+                        String.format("%s%s%d", uri, delete, id),
+                        EnglishTest.class);
+        EnglishTest testDelete = responseDelete.getBody();*/
+        return testUpdate;
     }
 
     public void deleteById(Long id) {
-        ResponseEntity<EnglishTest[]> response =
-                restTemplate.getForEntity(
-                        String.format("%s%s", uri, getListOfTests),
-                        EnglishTest[].class);
-        EnglishTest[] tests = response.getBody();
+        restTemplate.postForEntity(
+                String.format("%s%s%d", uri, delete, id),
+                id,
+                ResponseEntity.class);
 
     }
 
-    public void updateDataInTest(Long id, String question, String firstAnswer, String secondAnswer,
-                                              String thirdAnswer, String fourthAnswer, String rightAnswer) {
-        ResponseEntity<EnglishTest[]> response =
-                restTemplate.getForEntity(
-                        String.format("%s%s", uri, getListOfTests),
-                        EnglishTest[].class);
-        EnglishTest[] tests = response.getBody();
+    public void updateDataInTest(EnglishTest updateQuestion) {
+        restTemplate.postForEntity(
+                String.format("%s%s%d", uri, update, updateQuestion.getId()),
+                updateQuestion,
+                ResponseEntity.class);
+
 
     }
 

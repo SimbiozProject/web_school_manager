@@ -84,8 +84,16 @@ public class EnglishTestUtil {
         return modelAndView;
     }
 
-    public static ResponseEntity<EnglishTest[]> makeMockedResponseEntity() {
+    public static ResponseEntity<EnglishTest[]> makeMockedResponseEntityWithList() {
         return new ResponseEntity<EnglishTest[]>(makeMockedTests(), HttpStatus.OK);
+    }
+
+    public static ResponseEntity<EnglishTest> makeMockedResponseEntityWithTest() {
+        return new ResponseEntity<EnglishTest>(makeExpEnglishTest(), HttpStatus.OK);
+    }
+
+    public static  ResponseEntity<ResponseEntity> makeMockedResponseEntityVoid() {
+        return new ResponseEntity<ResponseEntity>(HttpStatus.OK);
     }
 
     public static EnglishTest[] makeMockedTests() {
