@@ -1,13 +1,18 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.TgUserTable;
+import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.dao.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/admin")
 public class NewAdminController {
@@ -32,30 +37,30 @@ public class NewAdminController {
     }
 
     @GetMapping("/userBlock")
-    public List<TgUserTable> blackListPage() {
+    public List<TgUser> blackListPage() {
         return adminService.findAllBlockUser();
     }
 
     @GetMapping("/findUserForBlock")
-    public Optional<TgUserTable> searchUserForBlock(String userName) {
+    public Optional<TgUser> searchUserForBlock(String userName) {
         return adminService.searchTgUserForBlockList(userName);
     }
 
     @GetMapping("/blockUserDelete" + "/{id}")
-    public Optional<TgUserTable> deleteTgUserById(@PathVariable("id") Long id) {
-        Optional<TgUserTable> tgUserTable = adminService.findBlockUserById(id);
+    public Optional<TgUser> deleteTgUserById(@PathVariable("id") Long id) {
+        Optional<TgUser> tgUserTable = adminService.findBlockUserById(id);
         return tgUserTable;
     }
 
     @DeleteMapping("/blockUserDelete" + "/{id}")
-    public String deleteAndReturnToBlackList(@PathVariable("id") Long id) throws EntityNotFoundException {
+    public String deleteAndReturnToBlackList(@PathVariable("id") Long id) throws Exception {
         adminService.deleteUserById(id);
         return "redirect:/userBlock";
     }
 
     @GetMapping("/blockUserUpdate" + "/{id}")
-    public Optional<TgUserTable> updateStatusBlock(@PathVariable("id") Long id) {
-        Optional<TgUserTable> tgUserTable = adminService.findBlockUserById(id);
+    public Optional<TgUser> updateStatusBlock(@PathVariable("id") Long id) {
+        Optional<TgUser> tgUserTable = adminService.findBlockUserById(id);
         return tgUserTable;
     }
 
