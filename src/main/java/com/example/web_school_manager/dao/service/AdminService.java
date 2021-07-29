@@ -21,23 +21,23 @@ public class AdminService {
     private final UserClient userClient;
 
     public List<TgUser> findAllBlockUser(){
-        return tgUserRepository.findTgUserTableByBlockUserIsTrue();
+        return userClient.findAllBlockUser();
     }
 
     public void deleteUserById(Long id){
-        tgUserRepository.deleteTgUserTableById(id);
+        userClient.deleteTgUserTableById(id);
     }
 
     public Optional<TgUser> findBlockUserById(Long id){
-        return tgUserRepository.findTgUserTableById(id);
+        return userClient.findTgUserTableById(id);
     }
 
     public void updateBlockStatusUser(Long id, Boolean blockUser){
-        tgUserRepository.updateBlockUserStatus(id, blockUser);
+        userClient.updateBlockUserStatus(id, blockUser);
     }
 
-    public Optional<TgUser> searchTgUserForBlockList(String userName){
-        return tgUserRepository.findByUserName(userName);
+    public Optional<TgUser> searchTgUserForBlockList(String userName) throws Exception {
+        return userClient.findByUserName(userName);
     }
 
     public List<TgUser> findAllUsers(){

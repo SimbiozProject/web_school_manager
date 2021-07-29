@@ -42,7 +42,7 @@ public class NewAdminController {
     }
 
     @GetMapping("/findUserForBlock")
-    public Optional<TgUser> searchUserForBlock(String userName) {
+    public Optional<TgUser> searchUserForBlock(String userName) throws Exception {
         return adminService.searchTgUserForBlockList(userName);
     }
 
