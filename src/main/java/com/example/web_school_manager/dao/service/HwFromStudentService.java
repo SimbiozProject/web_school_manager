@@ -1,6 +1,6 @@
 package com.example.web_school_manager.dao.service;
 
-import com.example.web_school_manager.bean.HwFromStudentTable;
+import com.example.web_school_manager.bean.HwFromStudent;
 import com.example.web_school_manager.dao.repository.HwFromStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,38 +11,38 @@ import java.util.List;
 @Service
 public class HwFromStudentService {
 
-    @Autowired
+    /*@Autowired
     HwFromStudentRepository hwFromStudentRepository;
 
     @Transactional
-    public List<HwFromStudentTable> findAll() {
+    public List<HwFromStudent> findAll() {
         return hwFromStudentRepository.findAll();
     }
 
     @Transactional
-    public HwFromStudentTable findById(Long id) {
-        return hwFromStudentRepository.findHwFromStudentTableByStudentId(id);
+    public HwFromStudent findById(Long id) {
+        return hwFromStudentRepository.findHwFromStudentByStudentId(id);
     }
 
     @Transactional
-    public List<HwFromStudentTable> findByFirstName(String firstName) {
-        return hwFromStudentRepository.findHwFromStudentTablesByStudentName_FirstNameContains(firstName);
+    public List<HwFromStudent> findByFirstName(String firstName) {
+        return hwFromStudentRepository.findHwFromStudentByStudentName_FirstNameContains(firstName);
     }
 
     @Transactional
-    public List<HwFromStudentTable> findByLastName(String lastName) {
+    public List<HwFromStudent> findByLastName(String lastName) {
         return hwFromStudentRepository.findHwFromStudentTablesByStudentNameLastNameContains(lastName);
     }
 
     @Transactional
-    public List<HwFromStudentTable> findByLesson(Integer lesson) {
-        return hwFromStudentRepository.findHwFromStudentTablesByLessonNumber(lesson);
+    public List<HwFromStudent> findByLesson(Integer lesson) {
+        return hwFromStudentRepository.findHwFromStudentByLessonNumber(lesson);
     }
 
     @Transactional
     public void deleteById(Long id) {
         hwFromStudentRepository.deleteById(id);
-    }
+    }*/
 
 }
 

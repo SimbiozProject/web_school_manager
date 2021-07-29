@@ -1,9 +1,6 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.bean.HwFromStudentTable;
-import com.example.web_school_manager.bean.TgUserTable;
 import com.example.web_school_manager.dao.repository.HwFromStudentRepository;
-import com.example.web_school_manager.dao.service.HwFromStudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +52,6 @@ class TeacherCheckHwControllerTest {
 
     @Test
     void deleteHwFrom() {
-
     }
 
     @Test
@@ -64,7 +60,6 @@ class TeacherCheckHwControllerTest {
 
     @Test
     void searchFirstname() {
-
     }
 
     @Test
@@ -73,8 +68,5 @@ class TeacherCheckHwControllerTest {
 
     @Test
     void searchLesson() {
-
-
-
     }
 }
