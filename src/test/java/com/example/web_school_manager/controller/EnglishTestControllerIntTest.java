@@ -53,6 +53,5 @@ class EnglishTestControllerIntTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("testList", makeExpList()))
                 .andReturn();
-
     }
 }
