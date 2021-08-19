@@ -31,8 +31,9 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.4'
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.11.2'
-
-
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config', version: '3.0.4'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.2'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.7.2'
 }
 
 test {
