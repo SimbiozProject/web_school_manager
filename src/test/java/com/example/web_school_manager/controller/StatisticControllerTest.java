@@ -3,6 +3,7 @@ package com.example.web_school_manager.controller;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.dao.service.AdminService;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.cloud.config.enabled=false"})
 class StatisticControllerTest {
 
     @Autowired
