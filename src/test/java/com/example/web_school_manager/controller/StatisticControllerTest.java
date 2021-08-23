@@ -1,21 +1,19 @@
 package com.example.web_school_manager.controller;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.dao.service.AdminService;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.cloud.config.enabled=false"})
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest
 class StatisticControllerTest {
 
     @Autowired

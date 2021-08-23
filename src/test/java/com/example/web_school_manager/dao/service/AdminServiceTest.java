@@ -1,26 +1,21 @@
 package com.example.web_school_manager.dao.service;
 
-import static com.example.util.BlockUserUtil.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.client.UserClient;
-
-import java.util.List;
-import java.util.Optional;
-
 import com.example.web_school_manager.dao.repository.TgUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.cloud.config.enabled=false"})
+import java.util.List;
+import java.util.Optional;
+
+import static com.example.util.BlockUserUtil.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
 class AdminServiceTest {
 
     @Autowired

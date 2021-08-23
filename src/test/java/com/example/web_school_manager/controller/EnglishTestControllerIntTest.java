@@ -18,12 +18,11 @@ import org.springframework.web.client.RestTemplate;
 import static com.example.util.EnglishTestUtil.makeExpList;
 import static com.example.util.EnglishTestUtil.makeMockedResponseEntityWithList;
 import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.cloud.config.enabled=false"})
+@SpringBootTest
 @AutoConfigureMockMvc
 class EnglishTestControllerIntTest {
 
