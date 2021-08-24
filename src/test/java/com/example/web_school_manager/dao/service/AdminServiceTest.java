@@ -1,12 +1,23 @@
 package com.example.web_school_manager.dao.service;
 
+import static com.example.util.BlockUserUtil.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.client.UserClient;
+
+import java.util.List;
+import java.util.Optional;
+
 import com.example.web_school_manager.dao.repository.TgUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;

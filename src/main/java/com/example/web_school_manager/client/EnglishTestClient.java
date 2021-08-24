@@ -38,8 +38,6 @@ public class EnglishTestClient {
         restTemplate.postForEntity(
                 String.format("%s%s", uri, postSaveTest),
                 newQuestion, ResponseEntity.class);
-
-
     }
 
     public EnglishTest findEnglishTestById(Long id) {
@@ -61,7 +59,6 @@ public class EnglishTestClient {
                 String.format("%s%s%d", uri, delete, id),
                 id,
                 ResponseEntity.class);
-
     }
 
     public void updateDataInTest(EnglishTest updateQuestion) {
@@ -69,8 +66,6 @@ public class EnglishTestClient {
                 String.format("%s%s%d", uri, update, updateQuestion.getId()),
                 updateQuestion,
                 ResponseEntity.class);
-
-
     }
 
 }

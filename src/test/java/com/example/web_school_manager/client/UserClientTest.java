@@ -1,6 +1,13 @@
 package com.example.web_school_manager.client;
 
+import static com.example.util.BlockUserUtil.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+
 import com.example.web_school_manager.bean.TgUser;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
