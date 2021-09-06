@@ -16,7 +16,7 @@ public class TeacherCheckHwController {
     HwFromStudentService hwFromStudentService;
 
 
-    /*@GetMapping(value = "teacherCheckHw")
+    @GetMapping(value = "teacherCheckHw")
     public ModelAndView checkingHwPage() {
         ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
         modelAndView.addObject("hwFromStudentList", hwFromStudentService.findAll());
@@ -58,5 +58,5 @@ public class TeacherCheckHwController {
         ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
         modelAndView.addObject("hwFromStudentList", hwFromStudentService.findByLesson(lesson));
         return modelAndView;
-    }*/
+    }
 }
