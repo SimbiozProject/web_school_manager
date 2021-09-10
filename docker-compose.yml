@@ -1,6 +1,7 @@
 version: '3.1'
 services:
-  sharedpsql:
+  web_db:
+    restart: always
     image: postgres
     container_name: postgres
     ports:
@@ -8,9 +9,9 @@ services:
     environment:
       POSTGRES_USER: jis6
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: testdb
+      POSTGRES_DB: web_db
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./web/db:/var/lib/postgresql/data
 
 #  web:
 #    image: tomcat:10.0.10-jdk11-openjdk-slim-buster
