@@ -1,72 +1,56 @@
 package com.example.web_school_manager.controller;
 
-import com.example.web_school_manager.dao.repository.HwFromStudentRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.web_school_manager.bean.HwFromStudent;
+import com.example.web_school_manager.bean.TgUser;
+import com.example.web_school_manager.dao.service.HwFromStudentService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.servlet.ModelAndView;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class TeacherCheckHwControllerTest {
-
-    @Autowired
-    MockMvc mockMvc;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @Autowired
-    HwFromStudentRepository hwFromStudentRepository;
 
     @Autowired
     TeacherCheckHwController teacherCheckHwController;
 
+    @MockBean
+    HwFromStudentService hwFromStudentService;
+
+    @MockBean
+    TgUser tgUser;
+
     @Test
-    void checkingHwPage() throws Exception {
-        //RequestBuilder request = MockMvcRequestBuilders.get("/allHW");
-        //mockMvc.perform(request).andDo(print()).andExpect(status().isOk());
-
-        RequestBuilder request = MockMvcRequestBuilders.get("/allHw")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(teacherCheckHwController.checkingHwPage()));
-
-        var expected = teacherCheckHwController.checkingHwPage();
-
-        MvcResult result = mockMvc.perform(request)
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(expected), false))
-                .andReturn();
+    void checkingHwPage() {
+        when(hwFromStudentService.findAll()).thenReturn(makeExpectedHwFromStudent());
+        ModelAndView actual = teacherCheckHwController.checkingHwPage();
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedView());
     }
 
-    @Test
-    void deleteHwFrom() {
+    private List<HwFromStudent> makeExpectedHwFromStudent() {
+        return List.of(
+                HwFromStudent.builder()
+                        .studentId(1L)
+                        .studentName(TgUser.builder().firstName("voava").build())
+                        .lessonNumber(1)
+                        .hwFromStudent("nikolaevich")
+                        .build()
+        );
     }
 
-    @Test
-    void deleteHw() {
-    }
-
-    @Test
-    void searchFirstname() {
-    }
-
-    @Test
-    void searchLastName() {
-    }
-
-    @Test
-    void searchLesson() {
+    private ModelAndView getExpectedView() {
+        ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
+        modelAndView.addObject("hwFromStudentList", hwFromStudentService.findAll());
+        return modelAndView;
     }
 }
