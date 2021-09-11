@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -27,31 +29,31 @@ class TeacherCheckHwControllerTest {
     @MockBean
     TgUser tgUser;
 
+    @MockBean
+    HwFromStudent hwFromStudent;
+
     private Long id;
-    private HwFromStudent hwFromStudent;
+    private String firstName;
+    private String lastName;
+    private int lessonNumber;
+
+    private List<HwFromStudent> hwFromStudentList;
 
     @BeforeEach
     public void setup() {
         hwFromStudent = HwFromStudent.builder()
                 .studentId(1L)
-                .studentName(TgUser.builder().userName("vlad").build())
+                .studentName(TgUser.builder().firstName("vlad").lastName("Gorgun").build())
                 .lessonNumber(1)
                 .hwFromStudent("dasda")
                 .build();
+
         id = hwFromStudent.getStudentId();
-    }
+        firstName = hwFromStudent.getStudentName().getFirstName();
+        lastName = hwFromStudent.getStudentName().getLastName();
+        lessonNumber = hwFromStudent.getLessonNumber();
 
-    @Test
-    void checkingHwPage() {
-        when(hwFromStudentService.findAll()).thenReturn(makeExpectedHwFromStudentFromCheckingHwPage());
-        ModelAndView actual = teacherCheckHwController.checkingHwPage();
-        assertThat(actual).usingRecursiveComparison()
-                .ignoringAllOverriddenEquals()
-                .isEqualTo(getExpectedViewFromCheckingHwPage());
-    }
-
-    private List<HwFromStudent> makeExpectedHwFromStudentFromCheckingHwPage() {
-        return List.of(
+        hwFromStudentList = List.of(
                 HwFromStudent.builder()
                         .studentId(1L)
                         .studentName(TgUser.builder().firstName("vova").build())
@@ -65,6 +67,15 @@ class TeacherCheckHwControllerTest {
                         .hwFromStudent("orepri")
                         .build()
         );
+    }
+
+    @Test
+    void checkingHwPage() {
+        when(hwFromStudentService.findAll()).thenReturn(hwFromStudentList);
+        ModelAndView actual = teacherCheckHwController.checkingHwPage();
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedViewFromCheckingHwPage());
     }
 
     private ModelAndView getExpectedViewFromCheckingHwPage() {
@@ -83,17 +94,72 @@ class TeacherCheckHwControllerTest {
     }
 
     private ModelAndView getExpectedViewFromDeleteHwFrom(Long id) {
-        ModelAndView modelAndView = new ModelAndView("deleteHwFromStudent");
+        ModelAndView modelAndView = new ModelAndView("/deleteHwFromStudent");
         modelAndView.addObject("hw", hwFromStudentService.findById(id));
         return modelAndView;
     }
 
-//    private HwFromStudent exampleFromStudent() {
-//        return HwFromStudent.builder()
-//                .studentId(1L)
-//                .studentName(TgUser.builder().userName("vlad").build())
-//                .lessonNumber(1)
-//                .hwFromStudent("dasda")
-//                .build();
-//    }
+    @Test
+    void deleteHw() {
+        doAnswer((i) -> {
+            assertEquals(id, i.getArgument(0));
+            return null;
+        }).when(hwFromStudentService).deleteById(id);
+        ModelAndView actual = teacherCheckHwController.deleteHw(id);
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedViewFromDeleteHw(id));
+    }
+
+    private ModelAndView getExpectedViewFromDeleteHw(Long id) {
+        ModelAndView modelAndView = new ModelAndView("/deleteHwFromStudent");
+        hwFromStudentService.deleteById(id);
+        modelAndView.setViewName("redirect:/teacherCheckHw");
+        return modelAndView;
+    }
+
+    @Test
+    void searchFirstname() {
+        when(hwFromStudentService.findByFirstName(firstName)).thenReturn(hwFromStudentList);
+        ModelAndView actual = teacherCheckHwController.searchFirstname(firstName);
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedViewFromSearchFirstName(firstName));
+    }
+
+    private ModelAndView getExpectedViewFromSearchFirstName(String name) {
+        ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
+        modelAndView.addObject("hwFromStudentList", hwFromStudentService.findByFirstName(name));
+        return modelAndView;
+    }
+
+    @Test
+    void searchLastName() {
+        when(hwFromStudentService.findByLastName(lastName)).thenReturn(hwFromStudentList);
+        ModelAndView actual = teacherCheckHwController.searchLastName(lastName);
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedViewForSearchLastName(lastName));
+    }
+
+    private ModelAndView getExpectedViewForSearchLastName(String name) {
+        ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
+        modelAndView.addObject("hwFromStudentList", hwFromStudentService.findByLastName(name));
+        return modelAndView;
+    }
+
+    @Test
+    void searchLesson() {
+        when(hwFromStudentService.findByLesson(lessonNumber)).thenReturn(hwFromStudentList);
+        ModelAndView actual = teacherCheckHwController.searchLesson(lessonNumber);
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedViewForSearchLesson(lessonNumber));
+    }
+
+    private ModelAndView getExpectedViewForSearchLesson(Integer lessonNumber) {
+        ModelAndView modelAndView = new ModelAndView("/teacherCheckHw");
+        modelAndView.addObject("hwFromStudentList", hwFromStudentService.findByLesson(lessonNumber));
+        return modelAndView;
+    }
 }
