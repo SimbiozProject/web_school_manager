@@ -103,7 +103,7 @@ class TeacherCheckHwControllerTest {
     void deleteHw() {
         doAnswer((i) -> {
             assertEquals(id, i.getArgument(0));
-            return null;
+            return new IllegalArgumentException("This id isn't exist");
         }).when(hwFromStudentService).deleteById(id);
         ModelAndView actual = teacherCheckHwController.deleteHw(id);
         assertThat(actual).usingRecursiveComparison()
