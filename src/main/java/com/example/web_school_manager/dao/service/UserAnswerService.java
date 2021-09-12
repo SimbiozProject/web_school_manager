@@ -5,6 +5,7 @@ import com.example.web_school_manager.dao.repository.UserAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,7 +14,7 @@ public class UserAnswerService {
     @Autowired
     private UserAnswerRepository userAnswerRepository;
 
-    public Iterable<UsersAnswer> findAll() {
+    public List<UsersAnswer> findAll() {
         return userAnswerRepository.findAll();
     }
 
