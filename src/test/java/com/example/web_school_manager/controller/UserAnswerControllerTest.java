@@ -104,4 +104,19 @@ class UserAnswerControllerTest {
         modelAndView.addObject("listUserAnswerTable", userAnswerService.findById(id));
         return modelAndView;
     }
+
+    @Test
+    void getUserAnswerById() {
+        when(userAnswerService.findById(id)).thenReturn(Optional.ofNullable(usersAnswer));
+        ModelAndView actual = userAnswerController.getUserAnswerById(id);
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringAllOverriddenEquals()
+                .isEqualTo(getExpectedForGetUserAnswerById(id));
+    }
+
+    private ModelAndView getExpectedForGetUserAnswerById(Long id) {
+        ModelAndView modelAndView = new ModelAndView("userTest");
+        modelAndView.addObject("userAnswer", userAnswerService.findById(id));
+        return modelAndView;
+    }
 }

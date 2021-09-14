@@ -22,15 +22,15 @@ public class UserAnswerController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/searchByUserName")
-    public ModelAndView searchByUserName(@ModelAttribute(name = "userName") String userName) {
+    @GetMapping(value = "/searchByUserName/{userName}")
+    public ModelAndView searchByUserName(@PathVariable(value = "userName") String userName) {
         ModelAndView modelAndView = new ModelAndView("/allUsersTest");
         modelAndView.addObject("listUserAnswerTable", userAnswerService.findByUserName(userName));
         return modelAndView;
     }
 
-    @GetMapping(value = "/searchById")
-    public ModelAndView searchById(@ModelAttribute(name = "id") Long id) {
+    @GetMapping(value = "/searchById/{id}")
+    public ModelAndView searchById(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/allUsersTest");
         modelAndView.addObject("listUserAnswerTable", userAnswerService.findById(id));
         return modelAndView;
