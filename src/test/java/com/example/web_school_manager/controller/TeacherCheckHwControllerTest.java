@@ -27,9 +27,6 @@ class TeacherCheckHwControllerTest {
     HwFromStudentService hwFromStudentService;
 
     @MockBean
-    TgUser tgUser;
-
-    @MockBean
     HwFromStudent hwFromStudent;
 
     private Long id;
