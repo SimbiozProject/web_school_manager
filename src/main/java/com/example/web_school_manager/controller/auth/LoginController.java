@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
     @GetMapping(value = "/")
     public ModelAndView loginWithTelegram(){
-        ModelAndView modelAndView = new ModelAndView("/login_page");
+        ModelAndView modelAndView = new ModelAndView("common/base");
         return modelAndView;
     }
 }

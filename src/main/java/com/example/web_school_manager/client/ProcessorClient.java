@@ -19,14 +19,13 @@ public class ProcessorClient {
     private String uri;
     private final RestTemplate restTemplate;
 
-    private String generateUserCode = "";
-    private String validateUserCode = "";
+    private String generateUserCode = "/login";
 
-    public void generateUserCode(String username) {
-
+    public void generateUserCode(final String username) throws Exception {
+        restTemplate.getForEntity(String.format("%s%s/%s", uri, generateUserCode, username), Void.class);
     }
 
-    public void validateUserCode(short usercode) throws Exception {
-
+    public void validateUserCode(String usercode, final String userName) throws Exception {
+        restTemplate.postForEntity(String.format("%s%s/%s", uri, generateUserCode, userName), usercode, Void.class);
     }
 }
