@@ -9,14 +9,19 @@ public class TelegramUserService {
     @Autowired
     ProcessorClient processorClient;
 
-    public void processUserName(String username) {
-        processorClient.generateUserCode(username);
-
+    public String processUserName(String username){
+        String nextPage = "tgconfirm";
+        try {
+            processorClient.generateUserCode(username);
+        } catch (Exception e) {
+            nextPage = "500";
+        }
+        return nextPage;
     }
 
 
-    public void validateUserCode(short code) throws Exception {
-        processorClient.generateUserCode(code + "");
+    public void validateUserCode(final String code, final String userName) throws Exception {
+        processorClient.validateUserCode(code, userName);
 
     }
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="widget">
+  <article class="stat-cards-item">
+    <div class="stat-cards-icon primary">
+      <i data-feather="bar-chart-2" aria-hidden="true"></i>
+    </div>
+    <div class="stat-cards-info">
+      <p class="stat-cards-info__num" th:text="${text}"></p>
+      <p class="stat-cards-info__progress">
+        <a th:href="${link}">open ...</a>
+      </p>
+    </div>
+  </article>
+</th:block>
+</html>

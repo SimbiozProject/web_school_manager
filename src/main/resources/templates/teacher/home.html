@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="common/head :: head" />
+
+<body>
+<div class="layer"></div>
+<!-- ! Body -->
+<a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+<div class="page-flex">
+  <!-- ! Sidebar -->
+  <th:block th:include="common/sidebar :: sidebar" />
+
+  <div class="main-wrapper">
+    <!-- ! Main nav -->
+    <th:block th:include="common/top-navigation :: nav" />
+
+    <!-- ! Main -->
+    <main class="main users chart-page" id="skip-target">
+      <div class="container">
+        <h2 class="main-title">Добро пожаловать в личный кабинет учителя!</h2>
+        <div class="row stat-cards">
+          <div class="col-md-6  col-xl-3" th:each="menuEl : ${menuList}">
+              <th:block th:include="element/widget :: widget"
+                        th:with="
+                          text=${menuEl.text},
+                          link=${menuEl.link}" >
+              </th:block>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- ! Footer -->
+    <th:block th:include="common/footer :: footer" />
+  </div>
+</div>
+<th:block th:include="common/scripts :: scripts" />
+</body>
+</html>
