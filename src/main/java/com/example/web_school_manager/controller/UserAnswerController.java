@@ -34,7 +34,7 @@ public class UserAnswerController {
         return modelAndView;
     }
 
-    @GetMapping(value = "allUsersTest/userTest/{id}")
+    @GetMapping(value = "/userTest/{id}")
     public ModelAndView getUserAnswerById(@PathVariable(value = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("/userTest");
         modelAndView.addObject("userAnswer", userAnswerService.findById(id));
