@@ -33,7 +33,7 @@
             <td th:text="${userAnswerTable.getId()}">#</td>
             <td th:text="${userAnswerTable.getUserName()}">UserName</td>
             <td>
-                <a th:object="${userAnswerTable}" th:href="@{'/userTest/' + ${userAnswerTable.getId()}}">Moving to user's page</a>
+                <a th:href="@{/userTest/{id}(id=${userAnswerTable.getId()})}">Moving to user's page</a>
                 ButtonMovingUserById
             </td>
         </tr>
