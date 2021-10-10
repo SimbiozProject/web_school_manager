@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="common/head :: head" />
+
+<body>
+<div class="layer"></div>
+<!-- ! Body -->
+<a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+<div class="page-flex">
+  <!-- ! Sidebar -->
+  <th:block th:include="common/sidebar :: sidebar" />
+
+  <div class="main-wrapper">
+    <!-- ! Main nav -->
+    <th:block th:include="common/top-navigation :: nav" />
+
+    <!-- ! Main -->
+    <main class="main users chart-page" id="skip-target">
+      <div class="container">
+        <h2 class="main-title">Welcome text</h2>
+
+        <div class="users-table table-wrapper">
+          <table class="posts-table">
+            <thead>
+            <tr class="users-table-info">
+              <th>
+                <label class="users-table__checkbox ms-20">
+                  <input type="checkbox" class="check-all">Thumbnail
+                </label>
+              </th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="test : ${tests}">
+              <td>
+                <label class="users-table__checkbox">
+                  <input type="checkbox" class="check">
+                  <div class="categories-table-img">
+                    <picture><source srcset="./img/categories/02.webp" type="image/webp"><img src="./img/categories/02.jpg" alt="category"></picture>
+                  </div>
+                </label>
+              </td>
+              <td th:text="${test.name}">
+                Start a blog to reach your creative peak
+              </td>
+              <td>
+                <div class="pages-table-img">
+                  <picture><source srcset="./img/avatar/avatar-face-03.webp" type="image/webp"><img src="./img/avatar/avatar-face-03.png" alt="User Name"></picture>
+                  Annette Black
+                </div>
+              </td>
+              <td><span class="badge-pending">Pending</span></td>
+              <td>23.04.2021</td>
+              <td>
+                        <span class="p-relative">
+                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
+                            <div class="sr-only">More info</div>
+                            <i data-feather="more-horizontal" aria-hidden="true"></i>
+                          </button>
+                          <ul class="users-item-dropdown dropdown">
+                            <li><a href="##">Edit</a></li>
+                            <li><a href="##">Quick edit</a></li>
+                            <li><a href="##">Trash</a></li>
+                          </ul>
+                        </span>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+    <!-- ! Footer -->
+    <th:block th:include="common/footer :: footer" />
+  </div>
+</div>
+<th:block th:include="common/scripts :: scripts" />
+</body>
+</html>

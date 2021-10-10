@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:include="common/head :: head" />
 
@@ -18,16 +18,13 @@
     <!-- ! Main -->
     <main class="main users chart-page" id="skip-target">
       <div class="container">
-        <h2 class="main-title">Добро пожаловать в личный кабинет учителя!</h2>
-        <div class="row stat-cards">
-          <div class="col-md-6  col-xl-3" th:each="menuEl : ${menuList}">
-              <th:block th:include="element/widget :: widget"
-                        th:with="
-                          text=${menuEl.text},
-                          link=${menuEl.link}" >
-              </th:block>
-          </div>
-        </div>
+        <h2 class="main-title">Welcome text</h2>
+        <article class="white-block">
+          <form method="post">
+            <input name="name" />
+            <button type="submit">Сохранить</button>
+          </form>
+        </article>
       </div>
     </main>
     <!-- ! Footer -->

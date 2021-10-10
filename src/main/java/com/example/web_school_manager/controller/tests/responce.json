@@ -1,0 +1,35 @@
+{
+  "_embedded" : {
+    "testQuestions" : [ {
+      "created" : null,
+      "question" : "My curios question",
+      "testId" : 1,
+      "answerList" : [ {
+        "answer" : "answer 1",
+        "correct" : false
+      }, {
+        "answer" : "answer 2",
+        "correct" : false
+      }, {
+        "answer" : "answer3 is right",
+        "correct" : true
+      }, {
+        "answer" : "answer4",
+        "correct" : false
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8091/testQuestions/2"
+        },
+        "testQuestion" : {
+          "href" : "http://localhost:8091/testQuestions/2"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8091/testQuestions/search/findAllByTestId?testId=1"
+    }
+  }
+}

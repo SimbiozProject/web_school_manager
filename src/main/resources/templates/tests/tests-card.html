@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="common/head :: head" />
+
+<body>
+<div class="layer"></div>
+<!-- ! Body -->
+<a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+<div class="page-flex">
+  <!-- ! Sidebar -->
+  <th:block th:include="common/sidebar :: sidebar" />
+
+  <div class="main-wrapper">
+    <!-- ! Main nav -->
+    <th:block th:include="common/top-navigation :: nav" />
+
+    <!-- ! Main -->
+    <main class="main users chart-page" id="skip-target">
+      <div class="container">
+        <h2 class="main-title" th:text="|Test ${test.name}|"> </h2>
+
+        <a th:href="|/tests/${test.id}/questions|">add question </a>
+
+        <div class="users-table table-wrapper">
+          <table class="posts-table">
+            <thead>
+            <tr class="users-table-info">
+              <th>
+                <label class="users-table__checkbox ms-20">
+                  <input type="checkbox" class="check-all">Thumbnail
+                </label>
+              </th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="question : ${questions}">
+              <td>
+                  <h1 th:text="${question.question}"></h1>
+                <p th:each="answer : ${question.answerList}">
+                <label class="users-table__checkbox">
+                    <input type="checkbox" th:checked="${answer.correct}" />
+                    <span th:text="${answer.answer}"></span>
+                </label>
+                </p>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+    <!-- ! Footer -->
+    <th:block th:include="common/footer :: footer" />
+  </div>
+</div>
+<th:block th:include="common/scripts :: scripts" />
+</body>
+</html>
