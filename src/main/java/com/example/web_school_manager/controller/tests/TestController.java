@@ -22,11 +22,8 @@ public class TestController {
   @GetMapping("/tests")
   public ModelAndView openTests() {
     ModelAndView mov = new ModelAndView("tests/tests-list");
-    List<Test> testList = List.of(
-        new Test("1", "max test"),
-        new Test("2", "bax test")
-    );
-    mov.addObject("tests", testList);
+    mov.addObject("tests", testClient.findAll());
+    testClient.findAllPaged();
     return mov;
   }
 

@@ -4,6 +4,7 @@ import com.example.web_school_manager.bean.Test;
 import com.example.web_school_manager.bean.TgUser;
 import com.example.web_school_manager.controller.tests.MyQuestionCollectionModel;
 import com.example.web_school_manager.controller.tests.QuestionDto;
+import com.example.web_school_manager.model.TestCollection;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Component
@@ -24,17 +27,18 @@ public class TestClient {
     private String uri;
     private final RestTemplate restTemplate;
 
-    private String addTest = "/tests";
+    private String tests = "/tests";
     private String addQuestion = "/testQuestions";
     private String findQuestionsByTestId = "/testQuestions/search/findAllByTestId";
 
-    public List<TgUser> findAll() {
-//        ResponseEntity<TgUser[]> response =
-//                restTemplate.getForEntity(
-//                        String.format("%s%s", uri, getAllUsers),
-//                        TgUser[].class);
-//        TgUser[] users = response.getBody();
-        return null; //Arrays.asList(users);
+    public Collection<Test> findAll() {
+        var testCollectionResponseEntity =
+                restTemplate.getForEntity(String.format("%s%s", uri, tests), TestCollection.class);
+        return testCollectionResponseEntity.getBody().getContent();
+    }
+
+    public LinkedHashMap findAllPaged() {
+       return (LinkedHashMap) restTemplate.getForObject(String.format("%s%s", uri, tests), Object.class);
     }
 
     public String addTest(String name) {
@@ -42,7 +46,7 @@ public class TestClient {
 
         TypeReference<CollectionModel<Test>> type = new TypeReference<CollectionModel<Test>>() {};
         ResponseEntity<CollectionModel> response = restTemplate.postForEntity(
-            String.format("%s%s", uri, addTest),
+            String.format("%s%s", uri, tests),
             test,
             CollectionModel.class);
         Link link = (Link) response.getBody().getLink("self").get();
@@ -53,7 +57,7 @@ public class TestClient {
 
     public Test findTestById(String id) {
         ResponseEntity<Test> response = restTemplate.getForEntity(
-            String.format("%s%s/%s", uri, addTest, id),
+            String.format("%s%s/%s", uri, tests, id),
             Test.class);
         Test test = response.getBody();
         return test;
